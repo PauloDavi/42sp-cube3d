@@ -9,37 +9,32 @@ CC := cc
 RM := rm -rf
 
 LIBTF_DIR := ./lib/libft
-LIBS := -L$(LIBTF_DIR) -lft
+LIBMLX := ./lib/MLX42
+LIBS := -L$(LIBTF_DIR) -lft $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 OBJ_DIR := build
 INCLUDE_DIR := include
-INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR)
+INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
-SRCS := cube3d.c
+SRCS := cube3d.c map.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 SRCS_BONUS := cube3d_bonus.c
 OBJS_BONUS := $(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
-all: libft $(NAME)
+all: libft libmlx $(NAME)
 
-init_modules: $(LIBTF_DIR)
-	git submodule update --init
-
-update_modules: init_modules
-	git submodule foreach git pull origin master --rebase
-
-libft: update_modules
+libft:
 	@$(MAKE) -C $(LIBTF_DIR)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-
-$(LIBTF_DIR):
-	mkdir -p $(LIBTF_DIR)
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(INCLUDES) $(CFLAGS) -o $(NAME)
@@ -49,6 +44,7 @@ bonus: libft $(OBJS_BONUS)
 
 clean: 
 	@$(MAKE) -C $(LIBTF_DIR) clean
+	@$(RM) -rf $(LIBMLX)/build
 	@$(RM) $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
@@ -58,5 +54,11 @@ fclean: clean
 re: fclean all
 
 rebonus: fclean bonus
+
+run: all
+	./cube3d
+
+check: all
+	valgrind -q --leak-check=full --suppressions=suppress.sup ./cube3d
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

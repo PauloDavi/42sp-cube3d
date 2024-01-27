@@ -22,12 +22,18 @@ OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 SRCS_BONUS := cube3d_bonus.c
 OBJS_BONUS := $(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
-all: libft libmlx $(NAME)
+all: update_submodules libft mlx $(NAME)
+
+init_submodules:
+	git submodule update --init
+
+update_submodules: init_submodules
+	git submodule foreach git pull origin master
 
 libft:
 	@$(MAKE) -C $(LIBTF_DIR)
 
-libmlx:
+mlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)

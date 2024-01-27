@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/27 11:26:21 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/27 17:48:09 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,26 @@ void	draw_square(t_cube3d *cube3d, t_point *point, size_t size,
 			current_x++;
 		}
 		current_y++;
+	}
+}
+
+void	draw_circle(t_cube3d *cube3d, t_point *center, int radius,
+		int32_t color)
+{
+	int	x;
+	int	y;
+
+	y = -radius;
+	while (y <= radius)
+	{
+		x = -radius;
+		while (x <= radius)
+		{
+			if (x * x + y * y <= radius * radius)
+				mlx_put_pixel(cube3d->image, center->x + x, center->y + y,
+					color);
+			x++;
+		}
+		y++;
 	}
 }

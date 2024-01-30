@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/29 22:25:08 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:19:56 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_hook(void *param)
 	t_cube3d	*cube3d;
 
 	cube3d = param;
-	draw_mini_map(cube3d);
+	draw_wallpaper(cube3d, FLOOR_COLOR, CEILING_COLOR);
+	// draw_mini_map(cube3d);
 	if (mlx_is_key_down(cube3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cube3d->mlx_ptr);
 	if (mlx_is_key_down(cube3d->mlx_ptr, MLX_KEY_UP))

@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/29 20:22:33 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:28:26 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
-		exit(EXIT_FAILURE);
+		err_exit("Error\nInvalid map file\n");
 	lines_size = get_size(map_file);
 	if (lines_size == 0)
 		close_finish(fd);
@@ -48,7 +48,7 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 
 void	draw_mini_map(t_cube3d *cube3d)
 {
-	size_t	line_len;
+	size_t		line_len;
 	t_vector	point;
 	t_vector	map_point;
 
@@ -63,8 +63,8 @@ void	draw_mini_map(t_cube3d *cube3d)
 			{
 				map_point.x = (point.x * MINI_MAP_TILE_SIZE);
 				map_point.y = (point.y * MINI_MAP_TILE_SIZE);
-				draw_square(cube3d, &map_point, MINI_MAP_TILE_SIZE,
-					get_mini_map_color(cube3d, &point));
+				draw_square(cube3d, &map_point, MINI_MAP_TILE_SIZE, \
+						get_mini_map_color(cube3d, &point));
 			}
 			point.x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/29 21:36:07 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:28:34 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	draw_square(t_cube3d *cube3d, t_vector *point, size_t size,
 void	draw_circle(t_cube3d *cube3d, t_vector *center, int radius,
 		int32_t color)
 {
-	int x;
-	int y;
-	int hypo;
+	int	x;
+	int	y;
+	int	hypo;
 
 	y = -radius;
 	hypo = radius * radius;
@@ -46,7 +46,7 @@ void	draw_circle(t_cube3d *cube3d, t_vector *center, int radius,
 		while (x <= radius)
 		{
 			if (x * x + y * y <= hypo)
-				mlx_put_pixel(cube3d->image, center->x + x, center->y + y,
+				mlx_put_pixel(cube3d->image, center->x + x, center->y + y, \
 						color);
 			x++;
 		}

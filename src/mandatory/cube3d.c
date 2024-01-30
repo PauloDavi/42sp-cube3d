@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/27 17:52:12 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/29 22:25:08 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_hook(void *param)
 		cube3d->player.x += PLAYER_SPEED;
 }
 
-int32_t	main(void)
+int	main(int argc, char **argv)
 {
 	t_cube3d	cube3d;
 
-	read_map(&cube3d, "maps/map1.cub");
+	read_map(&cube3d, valid_args(argc, argv));
 	initialize(&cube3d);
 	mlx_loop_hook(cube3d.mlx_ptr, ft_hook, &cube3d);
 	mlx_loop(cube3d.mlx_ptr);
@@ -42,3 +42,7 @@ int32_t	main(void)
 	mlx_terminate(cube3d.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
+
+// fazer verificação de chars invalidos no mapa
+// validar os parametros no começo do mapa
+// verificar se esta fechado

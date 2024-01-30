@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/27 16:39:29 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/29 22:11:16 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,11 @@ void	free_for_finish(t_cube3d *cube3d)
 void	close_finish(int fd)
 {
 	close(fd);
+	exit(EXIT_FAILURE);
+}
+
+void	err_exit(char *str)
+{
+	ft_fprintf(STDERR_FILENO, str);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/30 19:19:56 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:31:33 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv)
 	t_cube3d	cube3d;
 
 	read_map(&cube3d, valid_args(argc, argv));
+	valid_map(&cube3d);
 	initialize(&cube3d);
 	mlx_loop_hook(cube3d.mlx_ptr, ft_hook, &cube3d);
 	mlx_loop(cube3d.mlx_ptr);

@@ -6,15 +6,13 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/29 22:28:26 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:32:53 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static size_t	get_size(char *map_file);
-static void		get_player_position(t_cube3d *cube3d, char *line,
-					size_t line_size);
 static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_vector *point);
 
 void	read_map(t_cube3d *cube3d, char *map_file)
@@ -40,7 +38,6 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		get_player_position(cube3d, line, lines_size);
 		cube3d->map[lines_size++] = line;
 	}
 	close(fd);
@@ -75,7 +72,7 @@ void	draw_mini_map(t_cube3d *cube3d)
 	draw_circle(cube3d, &map_point, MINI_MAP_TILE_SIZE / 4, PLAYER_COLOR);
 }
 
-static void	get_player_position(t_cube3d *cube3d, char *line, size_t current_y)
+void	get_player_position(t_cube3d *cube3d, char *line, size_t current_y)
 {
 	char	*ptr;
 

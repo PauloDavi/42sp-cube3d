@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/30 19:25:46 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:39:04 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@
 # define FLOOR_COLOR 0xA85032FF
 # define CEILING_COLOR 0x3248A8FF
 # define PLAYER_SPEED 0.03
+# define VALID_CHAR_SET "01NSEW\n "
+# define VALID_CHAR_SET_PLAYER "NSEW"
 # define FILE_EXTENSION ".cub"
+# define ERR_INVALID_CHAR "Error\nInvalid map char '%c'\n"
+# define ERR_INVALID_PLAYER "Error\nInvalid number of players '%d'\n"
 
 typedef struct s_vector
 {
@@ -57,6 +61,7 @@ void			err_exit(char *str);
 // map
 void			read_map(t_cube3d *cube3d, char *map_file);
 void			draw_mini_map(t_cube3d *cube3d);
+void			get_player_position(t_cube3d *cube3d, char *line, size_t current_y);
 
 // draw
 void			draw_square(t_cube3d *cube3d, t_vector *point, size_t size,
@@ -71,5 +76,6 @@ void			initialize(t_cube3d *cube3d);
 
 // validation
 char			*valid_args(int argc, char **argv);
+void			valid_map(t_cube3d *cube3d);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/27 17:50:44 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/29 20:22:33 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static size_t	get_size(char *map_file);
 static void		get_player_position(t_cube3d *cube3d, char *line,
 					size_t line_size);
-static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_point *point);
+static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_vector *point);
 
 void	read_map(t_cube3d *cube3d, char *map_file)
 {
@@ -49,8 +49,8 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 void	draw_mini_map(t_cube3d *cube3d)
 {
 	size_t	line_len;
-	t_point	point;
-	t_point	map_point;
+	t_vector	point;
+	t_vector	map_point;
 
 	point.y = 0;
 	while (point.y < cube3d->map_y)
@@ -98,7 +98,7 @@ static void	get_player_position(t_cube3d *cube3d, char *line, size_t current_y)
 	}
 }
 
-static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_point *point)
+static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_vector *point)
 {
 	uint32_t	color;
 	size_t		x;

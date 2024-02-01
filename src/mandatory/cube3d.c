@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/30 20:31:33 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:24:27 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,3 @@ int	main(int argc, char **argv)
 	mlx_terminate(cube3d.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
-
-// fazer verificação de chars invalidos no mapa
-// validar os parametros no começo do mapa
-// verificar se esta fechado

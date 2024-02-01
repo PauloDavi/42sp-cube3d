@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/30 19:09:34 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:39:15 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	draw_circle(t_cube3d *cube3d, t_vector *center, int radius,
 	}
 }
 
-void draw_wallpaper(t_cube3d *cube3d, int32_t floor_color, int32_t ceiling_color)
+void	draw_wallpaper(t_cube3d *cube3d, int32_t floor_color,
+		int32_t ceiling_color)
 {
 	t_vector	vector;
 	uint32_t	color;
@@ -64,7 +65,7 @@ void draw_wallpaper(t_cube3d *cube3d, int32_t floor_color, int32_t ceiling_color
 	while (vector.y < cube3d->mlx_ptr->height)
 	{
 		vector.x = 0;
-		if (vector.y > cube3d->mlx_ptr->height/2)
+		if (vector.y > cube3d->mlx_ptr->height / 2)
 			color = floor_color;
 		while (vector.x < cube3d->mlx_ptr->width)
 		{

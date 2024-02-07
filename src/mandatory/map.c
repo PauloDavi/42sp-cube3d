@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/01/30 20:32:53 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/06 21:00:51 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 	cube3d->map[lines_size] = NULL;
 	cube3d->map_y = lines_size;
 	lines_size = 0;
+	parse_parameters(cube3d, fd);
 	while (true)
 	{
 		line = get_next_line(fd);
@@ -132,3 +133,6 @@ static size_t	get_size(char *map_file)
 	close(fd);
 	return (lines_size);
 }
+
+
+// PEGAR APENAS AS LINHAS DO MAPA, NAO TODAS AS LINHAS

@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/30 20:39:04 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:34:54 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@
 # define FILE_EXTENSION ".cub"
 # define ERR_INVALID_CHAR "Error\nInvalid map char '%c'\n"
 # define ERR_INVALID_PLAYER "Error\nInvalid number of players '%d'\n"
+# define WEST "WE"
+# define NORTH "NO"
+# define EAST "EA"
+# define SOUTH "SO"
+# define FLOOR "F"
+# define CEILING "C"
+
 
 typedef struct s_vector
 {
@@ -57,6 +64,7 @@ typedef struct s_cube3d
 void			free_for_finish(t_cube3d *cube3d);
 void			close_finish(int fd);
 void			err_exit(char *str);
+void			close_err_exit(int fd, char *str);
 
 // map
 void			read_map(t_cube3d *cube3d, char *map_file);
@@ -77,5 +85,9 @@ void			initialize(t_cube3d *cube3d);
 // validation
 char			*valid_args(int argc, char **argv);
 void			valid_map(t_cube3d *cube3d);
+char			*valid_charset(char *str, char *set);
+
+// read_param
+void			parse_parameters(t_cube3d *cube3d, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/29 22:11:16 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:15:37 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void	close_finish(int fd)
 
 void	err_exit(char *str)
 {
+	ft_fprintf(STDERR_FILENO, str);
+	exit(EXIT_FAILURE);
+}
+
+void	close_err_exit(int fd, char *str)
+{
+	close(fd);
 	ft_fprintf(STDERR_FILENO, str);
 	exit(EXIT_FAILURE);
 }

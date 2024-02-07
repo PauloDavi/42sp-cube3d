@@ -6,13 +6,12 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/01 20:39:58 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:34:43 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static char	*valid_charset(char *str, char *set);
 static int	valid_player(char *line);
 static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y);
 
@@ -106,7 +105,7 @@ void	valid_map(t_cube3d *cube3d)
 	valid_walls(cube3d);
 }
 
-static char	*valid_charset(char *str, char *set)
+char	*valid_charset(char *str, char *set)
 {
 	size_t	index;
 

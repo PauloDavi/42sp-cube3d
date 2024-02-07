@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/06 20:34:54 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:13:13 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ void			valid_map(t_cube3d *cube3d);
 char			*valid_charset(char *str, char *set);
 
 // read_param
-void			parse_parameters(t_cube3d *cube3d, int fd);
+size_t			parse_parameters(t_cube3d *cube3d, int fd);
 
 #endif

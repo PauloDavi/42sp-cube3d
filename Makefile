@@ -3,7 +3,7 @@ vpath %.c src/bonus
 
 NAME := cube3d
 CFLAGS := -Wextra -Wall -Werror
-CFLAGS += -O3 -g3
+CFLAGS += -g3
 
 CC := cc
 RM := rm -rf

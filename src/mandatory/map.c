@@ -6,13 +6,13 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/06 21:00:51 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:50:07 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static size_t	get_size(char *map_file);
+static size_t	get_file_size(char *map_file);
 static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_vector *point);
 
 void	read_map(t_cube3d *cube3d, char *map_file)
@@ -24,16 +24,16 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
 		err_exit("Error\nInvalid map file\n");
-	lines_size = get_size(map_file);
+	lines_size = get_file_size(map_file);
 	if (lines_size == 0)
-		close_finish(fd);
+		err_exit("Error\nEmpty file\n");
+	lines_size -= parse_parameters(cube3d, fd);
 	cube3d->map = malloc((lines_size + 1) * sizeof(char *));
 	if (cube3d->map == NULL)
-		close_finish(fd);
+		err_exit("Error\nMap malloc error\n");
 	cube3d->map[lines_size] = NULL;
 	cube3d->map_y = lines_size;
 	lines_size = 0;
-	parse_parameters(cube3d, fd);
 	while (true)
 	{
 		line = get_next_line(fd);
@@ -112,7 +112,7 @@ static uint32_t	get_mini_map_color(t_cube3d *cube3d, t_vector *point)
 	return (color);
 }
 
-static size_t	get_size(char *map_file)
+static size_t	get_file_size(char *map_file)
 {
 	char	*line;
 	int		fd;
@@ -133,6 +133,3 @@ static size_t	get_size(char *map_file)
 	close(fd);
 	return (lines_size);
 }
-
-
-// PEGAR APENAS AS LINHAS DO MAPA, NAO TODAS AS LINHAS

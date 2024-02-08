@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/07 19:46:54 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:46:07 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv)
 {
 	t_cube3d	cube3d;
 
+	start_params(&cube3d);
 	read_map(&cube3d, valid_args(argc, argv));
 	valid_map(&cube3d);
 	initialize(&cube3d);
@@ -44,3 +45,7 @@ int	main(int argc, char **argv)
 	mlx_terminate(cube3d.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
+
+// ENCHER DE ESPAÇOS NA PARTE QUE DEVERIA TER PAREDE
+// 1001000000000000000000001->       <---
+// 111111111011000001110000000000001

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/01/27 11:25:21 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/08 19:45:37 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ void	initialize(t_cube3d *cube3d)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	start_params(t_cube3d *cube3d)
+{
+	cube3d->west_texture = NULL;
+	cube3d->north_texture = NULL;
+	cube3d->east_texture = NULL;
+	cube3d->south_texture = NULL;
+	cube3d->floor_color = -1;
+	cube3d->ceiling_color = -1;
 }

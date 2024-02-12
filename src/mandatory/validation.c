@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/07 19:49:13 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:22:53 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static int	valid_player(char *line);
 static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y);
 
 void	valid_walls(t_cube3d *cube3d)
@@ -24,7 +23,7 @@ void	valid_walls(t_cube3d *cube3d)
 		|| valid_charset(cube3d->map[cube3d->map_y - 1], "1 \n") != NULL)
 	{
 		ft_free_split(cube3d->map);
-		err_exit("Error\nOpen map\n");
+		err_exit(ERR_INVALID_OPEN_MAP);
 	}
 	y = 1;
 	while (y < (cube3d->map_y - 1))
@@ -39,40 +38,21 @@ void	valid_walls(t_cube3d *cube3d)
 	}
 }
 
-static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y)
-{
-	if (cube3d->map[y][x] != '1' && cube3d->map[y][x] != ' ')
-	{
-		if (x == 0 || cube3d->map[y][x + 1] == '\n' || cube3d->map[y][x
-			+ 1] == '\0')
-		{
-			ft_free_split(cube3d->map);
-			err_exit("Error\nOpen map\n");
-		}
-		if (cube3d->map[y + 1][x] == ' ' || cube3d->map[y - 1][x] == ' '
-			|| cube3d->map[y][x + 1] == ' ' || cube3d->map[y][x - 1] == ' ')
-		{
-			ft_free_split(cube3d->map);
-			err_exit("Error\nOpen map\n");
-		}
-	}
-}
-
 char	*valid_args(int argc, char **argv)
 {
 	size_t	filename_size;
 	size_t	extension_size;
 
 	if (argc != 2)
-		err_exit("Error\nInvalid number of arguments\n");
+		err_exit(ERR_INVALID_ARG_NUM);
 	filename_size = ft_strlen(argv[1]);
 	extension_size = ft_strlen(FILE_EXTENSION);
 	if (filename_size < extension_size)
-		err_exit("Error\nInvalid filename\n");
+		err_exit(ERR_INVALID_FILE_NAME);
 	while (extension_size--)
 	{
 		if (argv[1][--filename_size] != FILE_EXTENSION[extension_size])
-			err_exit("Error\nInvalid filename\n");
+			err_exit(ERR_INVALID_FILE_NAME);
 	}
 	return (argv[1]);
 }
@@ -127,25 +107,21 @@ char	*valid_charset(char *str, char *set)
 	return (str);
 }
 
-static int	valid_player(char *line)
+static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y)
 {
-	int	index;
-	int	num;
-
-	num = 0;
-	while (*line != '\0')
+	if (cube3d->map[y][x] != '1' && cube3d->map[y][x] != ' ')
 	{
-		index = 0;
-		while (VALID_CHAR_SET_PLAYER[index] != '\0')
+		if (x == 0 || cube3d->map[y][x + 1] == '\n' || cube3d->map[y][x
+			+ 1] == '\0')
 		{
-			if (*line == VALID_CHAR_SET_PLAYER[index])
-			{
-				num++;
-				break ;
-			}
-			index++;
+			ft_free_split(cube3d->map);
+			err_exit(ERR_INVALID_OPEN_MAP);
 		}
-		line++;
+		if (cube3d->map[y + 1][x] == ' ' || cube3d->map[y - 1][x] == ' '
+			|| cube3d->map[y][x + 1] == ' ' || cube3d->map[y][x - 1] == ' ')
+		{
+			ft_free_split(cube3d->map);
+			err_exit(ERR_INVALID_OPEN_MAP);
+		}
 	}
-	return (num);
 }

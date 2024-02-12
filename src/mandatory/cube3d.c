@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/08 19:46:07 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:02:05 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_hook(void *param)
 	t_cube3d	*cube3d;
 
 	cube3d = param;
-	draw_wallpaper(cube3d, FLOOR_COLOR, CEILING_COLOR);
+	draw_wallpaper(cube3d, cube3d->floor_color, cube3d->ceiling_color);
 	// draw_mini_map(cube3d);
 	if (mlx_is_key_down(cube3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cube3d->mlx_ptr);

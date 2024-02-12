@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/01 20:39:15 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:29:16 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	draw_circle(t_cube3d *cube3d, t_vector *center, int radius,
 		while (x <= radius)
 		{
 			if (x * x + y * y <= hypo)
-				mlx_put_pixel(cube3d->image, center->x + x, center->y + y, \
-						color);
+				mlx_put_pixel(cube3d->image, center->x + x, center->y + y,
+					color);
 			x++;
 		}
 		y++;

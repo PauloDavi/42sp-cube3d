@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/12 15:02:14 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/14 20:29:30 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@
 # define ERR_INVALID_COLOR "Error\nInvalid color\n"
 # define ERR_INVALID_DUPLICATED_TEXTURE "Error\nInvalid duplicated texture\n"
 # define ERR_INVALID_MAP_FILE "Error\nInvalid map file\n"
-# define ERR_INVALID_EMPETY_FILE "Error\nEmpty file\n"
+# define ERR_INVALID_EMPTY_FILE "Error\nEmpty file\n"
 # define ERR_INVALID_MALLOC "Error\nMalloc error\n"
 # define ERR_INVALID_OPEN_MAP "Error\nOpen map\n"
 # define ERR_INVALID_ARG_NUM "Error\nInvalid number of arguments\n"
 # define ERR_INVALID_FILE_NAME "Error\nInvalid filename\n"
+# define ERR_MISSING_PARAMS "Error\nMissing parameters\n"
+# define ERR_MAP_NOT_FOUND "Error\nMap not found\n"
 
 typedef struct s_vector
 {
@@ -84,7 +86,7 @@ typedef struct s_cube3d
 void				free_for_finish(t_cube3d *cube3d);
 void				err_exit(char *str);
 void				close_err_exit(int fd, char *str);
-void				close_free_err_exit(int fd, char **arr, char *err_mesage);
+void				close_free_err_exit(int fd, char **arr, char *err_message);
 void				free_texture(t_cube3d *cube3d);
 
 // map
@@ -119,6 +121,6 @@ char				*valid_charset(char *str, char *set);
 int					valid_player(char *line);
 
 // read_param
-size_t				parse_parameters(t_cube3d *cube3d, int fd);
+size_t				parse_parameters(t_cube3d *cube3d, int fd, char **map_line);
 
 #endif

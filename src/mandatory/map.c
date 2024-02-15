@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/12 13:34:56 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/14 20:07:08 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 		err_exit(ERR_INVALID_MAP_FILE);
 	lines_size = get_file_size(map_file);
 	if (lines_size == 0)
-		err_exit(ERR_INVALID_EMPETY_FILE);
-	lines_size -= parse_parameters(cube3d, fd);
+		err_exit(ERR_INVALID_EMPTY_FILE);
+	lines_size -= parse_parameters(cube3d, fd, &line);
 	cube3d->map = malloc((lines_size + 1) * sizeof(char *));
 	if (cube3d->map == NULL)
 		err_exit(ERR_INVALID_MALLOC);
@@ -33,10 +33,10 @@ void	read_map(t_cube3d *cube3d, char *map_file)
 	lines_size = 0;
 	while (true)
 	{
+		cube3d->map[lines_size++] = line;
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		cube3d->map[lines_size++] = line;
 	}
 	close(fd);
 }

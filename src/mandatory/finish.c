@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/12 13:46:59 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/14 20:27:35 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	close_err_exit(int fd, char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	close_free_err_exit(int fd, char **arr, char *err_mesage)
+void	close_free_err_exit(int fd, char **arr, char *err_message)
 {
 	ft_free_split(arr);
-	close_err_exit(fd, err_mesage);
+	close_err_exit(fd, err_message);
 }

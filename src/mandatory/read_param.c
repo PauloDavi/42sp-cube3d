@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   read_param.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:49:42 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/12 14:57:40 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/14 21:04:28 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void		check_chars_map(t_cube3d *cube3d, int fd, char *str);
+static void		check_params_map(t_cube3d *cube3d, int fd, char *str);
 static void		load_texture(t_cube3d *cube3d, mlx_texture_t **texture, int fd,
 					char **words);
 static void		load_color(t_cube3d *cube3d, int64_t *color, int fd,
 					char **words);
 static uint32_t	parse_color(char **colors, t_cube3d *cube3d, int fd,
 					char **words);
+static size_t	skip_empty_lines(t_cube3d *cube3d, int fd, char **line);
 
-size_t	parse_parameters(t_cube3d *cube3d, int fd)
+size_t	parse_parameters(t_cube3d *cube3d, int fd, char **map_line)
 {
 	char	*line;
 	size_t	read_lines;
@@ -30,21 +31,45 @@ size_t	parse_parameters(t_cube3d *cube3d, int fd)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break ;
+		{
+			free_texture(cube3d);
+			close_err_exit(fd, ERR_MISSING_PARAMS);
+		}
 		read_lines++;
 		line = remove_new_line(line);
 		if (!is_empty_line(line))
-			check_chars_map(cube3d, fd, line);
+			check_params_map(cube3d, fd, line);
 		free(line);
 		if (cube3d->south_texture != NULL && cube3d->south_texture != NULL
 			&& cube3d->west_texture != NULL && cube3d->east_texture != NULL
 			&& cube3d->ceiling_color != -1 && cube3d->floor_color != -1)
 			break ;
 	}
-	return (read_lines);
+	return (read_lines + skip_empty_lines(cube3d, fd, map_line));
 }
 
-static void	check_chars_map(t_cube3d *cube3d, int fd, char *str)
+static size_t	skip_empty_lines(t_cube3d *cube3d, int fd, char **line)
+{
+	size_t	num;
+
+	num = 0;
+	while (true)
+	{
+		*line = get_next_line(fd);
+		if (*line == NULL)
+		{
+			free_texture(cube3d);
+			close_err_exit(fd, ERR_MAP_NOT_FOUND);
+		}
+		if (!is_empty_line(*line))
+			break;
+		free(*line);
+		num++;
+	}
+	return (num);
+}
+
+static void	check_params_map(t_cube3d *cube3d, int fd, char *str)
 {
 	char	**words;
 	size_t	size;
@@ -65,7 +90,10 @@ static void	check_chars_map(t_cube3d *cube3d, int fd, char *str)
 	else if (!ft_strncmp(words[0], CEILING, 2))
 		load_color(cube3d, &cube3d->ceiling_color, fd, words);
 	else
+	{
+		free_texture(cube3d);
 		close_free_err_exit(fd, words, ERR_INVALID_TEXTURE_COLOR);
+	}
 }
 
 static void	load_texture(t_cube3d *cube3d, mlx_texture_t **texture, int fd,

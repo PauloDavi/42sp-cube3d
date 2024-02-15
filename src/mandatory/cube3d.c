@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/12 15:02:05 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/14 21:20:06 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 
 	start_params(&cube3d);
 	read_map(&cube3d, valid_args(argc, argv));
+	// normalize_map();
 	valid_map(&cube3d);
 	initialize(&cube3d);
 	mlx_loop_hook(cube3d.mlx_ptr, ft_hook, &cube3d);

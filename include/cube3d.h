@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/14 20:29:30 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:10:58 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void				read_map(t_cube3d *cube3d, char *map_file);
 void				draw_mini_map(t_cube3d *cube3d);
 void				get_player_position(t_cube3d *cube3d, char *line,
 						size_t current_y);
+void				normalize_map(t_cube3d *cube3d);
 
 // draw
 void				draw_square(t_cube3d *cube3d, t_vector *point, size_t size,
@@ -111,6 +112,7 @@ void				start_params(t_cube3d *cube3d);
 char				*remove_new_line(char *str);
 bool				is_empty_line(char *str);
 size_t				get_file_size(char *map_file);
+size_t				find_max_map_width(t_cube3d *cube3d);
 
 // validation
 char				*valid_args(int argc, char **argv);
@@ -122,5 +124,11 @@ int					valid_player(char *line);
 
 // read_param
 size_t				parse_parameters(t_cube3d *cube3d, int fd, char **map_line);
+
+// load_params
+void				load_texture(t_cube3d *cube3d, mlx_texture_t **texture,
+						int fd, char **words);
+void				load_color(t_cube3d *cube3d, int64_t *color, int fd,
+						char **words);
 
 #endif

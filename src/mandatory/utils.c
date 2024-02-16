@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:28:28 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/12 12:30:07 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/15 21:10:49 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,24 @@ size_t	get_file_size(char *map_file)
 	}
 	close(fd);
 	return (lines_size);
+}
+
+size_t	find_max_map_width(t_cube3d *cube3d)
+{
+	size_t	i;
+	size_t	j;
+	size_t	max;
+
+	i = 0;
+	max = 0;
+	while (i < cube3d->map_y)
+	{
+		j = 0;
+		while (cube3d->map[i][j] != '\0' && cube3d->map[i][j] != '\n')
+			j++;
+		if (j > max)
+			max = j;
+		i++;
+	}
+	return (max);
 }

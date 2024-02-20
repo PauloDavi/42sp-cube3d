@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:54 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/15 21:10:58 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:23:06 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 # define VALID_CHAR_SET "01NSEW\n "
 # define VALID_CHAR_SET_PLAYER "NSEW"
+# define VALID_WALLS_CHAR_SET "1 "
 # define FILE_EXTENSION ".cub"
 
 # define WEST "WE"
@@ -80,6 +81,9 @@ typedef struct s_cube3d
 	mlx_texture_t	*south_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
+	t_vector		pos;
+	t_vector		dir;
+	t_vector		plane;
 }					t_cube3d;
 
 // finish

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/11 03:06:11 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:32:24 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	initialize(t_cube3d *cube3d)
 {
-	cube3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", false);
+	cube3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (cube3d->mlx_ptr == NULL)
 	{
 		puts(mlx_strerror(mlx_errno));
@@ -37,6 +37,12 @@ void	initialize(t_cube3d *cube3d)
 
 void	start_params(t_cube3d *cube3d)
 {
+	cube3d->pos.x = 5;
+	cube3d->pos.y = 5;
+	cube3d->dir.x = -1;
+	cube3d->dir.y = 0;
+	cube3d->plane.x = 0;
+	cube3d->plane.y = 0.66;
 	cube3d->west_texture = NULL;
 	cube3d->north_texture = NULL;
 	cube3d->east_texture = NULL;

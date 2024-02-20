@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:43:10 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/15 21:11:40 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:32:22 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	print_map(t_cube3d *cube3d);
+void distance_rays(t_cube3d *cube3d)
+{
+	int camera_ratio;
+	double current_ray;
+	t_vector ray;
+	
+	camera_ratio = 0;
+    while (camera_ratio < WIDTH)
+    {
+		current_ray = (2 * camera_ratio / (double)WIDTH) - 1;
+    	ray.x = cube3d->dir.x + cube3d->plane.x * current_ray;
+    	ray.y = cube3d->dir.y + cube3d->plane.y * current_ray;
+		camera_ratio++;
+	}
+}
 
 void	ft_hook(void *param)
 {
@@ -21,6 +35,7 @@ void	ft_hook(void *param)
 	cube3d = param;
 	draw_wallpaper(cube3d, cube3d->floor_color, cube3d->ceiling_color);
 	// draw_mini_map(cube3d);
+	distance_rays(cube3d);
 	if (mlx_is_key_down(cube3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cube3d->mlx_ptr);
 	if (mlx_is_key_down(cube3d->mlx_ptr, MLX_KEY_UP))

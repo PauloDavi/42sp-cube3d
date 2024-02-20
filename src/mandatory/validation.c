@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/12 13:22:53 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:33:15 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	valid_walls(t_cube3d *cube3d)
 	size_t	x;
 	size_t	y;
 
-	if (valid_charset(cube3d->map[0], "1 \n") != NULL
-		|| valid_charset(cube3d->map[cube3d->map_y - 1], "1 \n") != NULL)
+	if (valid_charset(cube3d->map[0], VALID_WALLS_CHAR_SET) != NULL
+		|| valid_charset(cube3d->map[cube3d->map_y - 1], VALID_WALLS_CHAR_SET) != NULL)
 	{
 		ft_free_split(cube3d->map);
 		err_exit(ERR_INVALID_OPEN_MAP);
@@ -29,7 +29,7 @@ void	valid_walls(t_cube3d *cube3d)
 	while (y < (cube3d->map_y - 1))
 	{
 		x = 0;
-		while (cube3d->map[y][x] != '\0' && cube3d->map[y][x] != '\n')
+		while (cube3d->map[y][x] != '\0')
 		{
 			valid_open_wall(cube3d, x, y);
 			x++;
@@ -109,10 +109,9 @@ char	*valid_charset(char *str, char *set)
 
 static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y)
 {
-	if (cube3d->map[y][x] != '1' && cube3d->map[y][x] != ' ')
+	if (cube3d->map[y][x] == '0')
 	{
-		if (x == 0 || cube3d->map[y][x + 1] == '\n' || cube3d->map[y][x
-			+ 1] == '\0')
+		if (x == 0 || cube3d->map[y][x + 1] == '\0')
 		{
 			ft_free_split(cube3d->map);
 			err_exit(ERR_INVALID_OPEN_MAP);

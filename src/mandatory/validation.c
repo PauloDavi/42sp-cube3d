@@ -6,32 +6,33 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/19 22:33:15 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:20:46 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
-static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y);
+static void	valid_open_wall(t_cub3d *cub3d, size_t x, size_t y);
 
-void	valid_walls(t_cube3d *cube3d)
+void	valid_walls(t_cub3d *cub3d)
 {
 	size_t	x;
 	size_t	y;
 
-	if (valid_charset(cube3d->map[0], VALID_WALLS_CHAR_SET) != NULL
-		|| valid_charset(cube3d->map[cube3d->map_y - 1], VALID_WALLS_CHAR_SET) != NULL)
+	if (valid_charset(cub3d->map[0], VALID_WALLS_CHAR_SET) != NULL
+		|| valid_charset(cub3d->map[cub3d->map_y - 1],
+			VALID_WALLS_CHAR_SET) != NULL)
 	{
-		ft_free_split(cube3d->map);
+		ft_free_split(cub3d->map);
 		err_exit(ERR_INVALID_OPEN_MAP);
 	}
 	y = 1;
-	while (y < (cube3d->map_y - 1))
+	while (y < (cub3d->map_y - 1))
 	{
 		x = 0;
-		while (cube3d->map[y][x] != '\0')
+		while (cub3d->map[y][x] != '\0')
 		{
-			valid_open_wall(cube3d, x, y);
+			valid_open_wall(cub3d, x, y);
 			x++;
 		}
 		y++;
@@ -57,7 +58,7 @@ char	*valid_args(int argc, char **argv)
 	return (argv[1]);
 }
 
-void	valid_map(t_cube3d *cube3d)
+void	valid_map(t_cub3d *cub3d)
 {
 	size_t	y;
 	size_t	player_count;
@@ -65,24 +66,24 @@ void	valid_map(t_cube3d *cube3d)
 
 	y = 0;
 	player_count = 0;
-	while (y < cube3d->map_y)
+	while (y < cub3d->map_y)
 	{
-		invalid_char = valid_charset(cube3d->map[y], VALID_CHAR_SET);
+		invalid_char = valid_charset(cub3d->map[y], VALID_CHAR_SET);
 		if (invalid_char != NULL)
 		{
-			ft_free_split(cube3d->map);
+			ft_free_split(cub3d->map);
 			ft_fprintf(STDERR_FILENO, ERR_INVALID_CHAR, *invalid_char);
 			exit(EXIT_FAILURE);
 		}
-		player_count += valid_player(cube3d->map[y++]);
+		player_count += valid_player(cub3d->map[y++]);
 	}
 	if (player_count != 1)
 	{
 		ft_fprintf(STDERR_FILENO, ERR_INVALID_PLAYER, player_count);
-		ft_free_split(cube3d->map);
+		ft_free_split(cub3d->map);
 		exit(EXIT_FAILURE);
 	}
-	valid_walls(cube3d);
+	valid_walls(cub3d);
 }
 
 char	*valid_charset(char *str, char *set)
@@ -107,19 +108,19 @@ char	*valid_charset(char *str, char *set)
 	return (str);
 }
 
-static void	valid_open_wall(t_cube3d *cube3d, size_t x, size_t y)
+static void	valid_open_wall(t_cub3d *cub3d, size_t x, size_t y)
 {
-	if (cube3d->map[y][x] == '0')
+	if (cub3d->map[y][x] == '0')
 	{
-		if (x == 0 || cube3d->map[y][x + 1] == '\0')
+		if (x == 0 || cub3d->map[y][x + 1] == '\0')
 		{
-			ft_free_split(cube3d->map);
+			ft_free_split(cub3d->map);
 			err_exit(ERR_INVALID_OPEN_MAP);
 		}
-		if (cube3d->map[y + 1][x] == ' ' || cube3d->map[y - 1][x] == ' '
-			|| cube3d->map[y][x + 1] == ' ' || cube3d->map[y][x - 1] == ' ')
+		if (cub3d->map[y + 1][x] == ' ' || cub3d->map[y - 1][x] == ' '
+			|| cub3d->map[y][x + 1] == ' ' || cub3d->map[y][x - 1] == ' ')
 		{
-			ft_free_split(cube3d->map);
+			ft_free_split(cub3d->map);
 			err_exit(ERR_INVALID_OPEN_MAP);
 		}
 	}

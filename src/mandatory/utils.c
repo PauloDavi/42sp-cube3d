@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:28:28 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/15 21:10:49 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/20 18:18:06 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 char	*remove_new_line(char *str)
 {
@@ -60,7 +60,7 @@ size_t	get_file_size(char *map_file)
 	return (lines_size);
 }
 
-size_t	find_max_map_width(t_cube3d *cube3d)
+size_t	find_max_map_width(t_cub3d *cub3d)
 {
 	size_t	i;
 	size_t	j;
@@ -68,10 +68,10 @@ size_t	find_max_map_width(t_cube3d *cube3d)
 
 	i = 0;
 	max = 0;
-	while (i < cube3d->map_y)
+	while (i < cub3d->map_y)
 	{
 		j = 0;
-		while (cube3d->map[i][j] != '\0' && cube3d->map[i][j] != '\n')
+		while (cub3d->map[i][j] != '\0' && cub3d->map[i][j] != '\n')
 			j++;
 		if (j > max)
 			max = j;

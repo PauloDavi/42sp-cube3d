@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <limits.h>
 
 # define WIDTH 1200
 # define HEIGHT 800
@@ -68,7 +69,7 @@ typedef struct s_vector
 	double			y;
 }					t_vector;
 
-typedef struct s_cube3d
+typedef struct s_cub3d
 {
 	mlx_t			*mlx_ptr;
 	mlx_image_t		*image;
@@ -84,55 +85,55 @@ typedef struct s_cube3d
 	t_vector		pos;
 	t_vector		dir;
 	t_vector		plane;
-}					t_cube3d;
+}					t_cub3d;
 
 // finish
-void				free_for_finish(t_cube3d *cube3d);
+void				free_for_finish(t_cub3d *cub3d);
 void				err_exit(char *str);
 void				close_err_exit(int fd, char *str);
 void				close_free_err_exit(int fd, char **arr, char *err_message);
-void				free_texture(t_cube3d *cube3d);
+void				free_texture(t_cub3d *cub3d);
 
 // map
-void				read_map(t_cube3d *cube3d, char *map_file);
-void				draw_mini_map(t_cube3d *cube3d);
-void				get_player_position(t_cube3d *cube3d, char *line,
+void				read_map(t_cub3d *cub3d, char *map_file);
+void				draw_mini_map(t_cub3d *cub3d);
+void				get_player_position(t_cub3d *cub3d, char *line,
 						size_t current_y);
-void				normalize_map(t_cube3d *cube3d);
+void				normalize_map(t_cub3d *cub3d);
 
 // draw
-void				draw_square(t_cube3d *cube3d, t_vector *point, size_t size,
+void				draw_square(t_cub3d *cub3d, t_vector *point, size_t size,
 						int32_t color);
-void				draw_circle(t_cube3d *cube3d, t_vector *center, int radius,
+void				draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
 						int32_t color);
-void				draw_wallpaper(t_cube3d *cube3d, int32_t floor_color,
+void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
 
 // init
-void				initialize(t_cube3d *cube3d);
-void				start_params(t_cube3d *cube3d);
+void				initialize(t_cub3d *cub3d);
+void				start_params(t_cub3d *cub3d);
 
 // util
 char				*remove_new_line(char *str);
 bool				is_empty_line(char *str);
 size_t				get_file_size(char *map_file);
-size_t				find_max_map_width(t_cube3d *cube3d);
+size_t				find_max_map_width(t_cub3d *cub3d);
 
 // validation
 char				*valid_args(int argc, char **argv);
-void				valid_map(t_cube3d *cube3d);
+void				valid_map(t_cub3d *cub3d);
 char				*valid_charset(char *str, char *set);
 
 // player
 int					valid_player(char *line);
 
 // read_param
-size_t				parse_parameters(t_cube3d *cube3d, int fd, char **map_line);
+size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);
 
 // load_params
-void				load_texture(t_cube3d *cube3d, mlx_texture_t **texture,
+void				load_texture(t_cub3d *cub3d, mlx_texture_t **texture,
 						int fd, char **words);
-void				load_color(t_cube3d *cube3d, int64_t *color, int fd,
+void				load_color(t_cub3d *cub3d, int64_t *color, int fd,
 						char **words);
 
 #endif

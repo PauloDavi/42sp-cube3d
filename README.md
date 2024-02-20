@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://i.imgur.com/U7aswVo.png" width="140" alt="grade" />
-  <img src="https://game.42sp.org.br/static/assets/achievements/cube3dm.png" width="120" alt="m" />
+  <img src="https://game.42sp.org.br/static/assets/achievements/cub3dm.png" width="120" alt="m" />
 </p>
 
 ---
@@ -14,10 +14,10 @@
 </p>
 
 <p align="center">
-	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/PauloDavi/42sp-cube3d?color=lightblue" />
-	<img alt="Code language count" src="https://img.shields.io/github/languages/count/PauloDavi/42sp-cube3d?color=yellow" />
-	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/PauloDavi/42sp-cube3d?color=blue" />
-	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/PauloDavi/42sp-cube3d?color=green" />
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/PauloDavi/42sp-cub3d?color=lightblue" />
+	<img alt="Code language count" src="https://img.shields.io/github/languages/count/PauloDavi/42sp-cub3d?color=yellow" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/PauloDavi/42sp-cub3d?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/PauloDavi/42sp-cub3d?color=green" />
 </p>
 
 <h3 align="center">
@@ -50,5 +50,5 @@ make bonus
 The basic usability is like:
 
 ```bash
-./cube3d
+./cub3d
 ```

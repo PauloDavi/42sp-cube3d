@@ -1,7 +1,7 @@
 vpath %.c src/mandatory
 vpath %.c src/bonus
 
-NAME := cube3d
+NAME := cub3d
 CFLAGS := -Wextra -Wall -Werror
 CFLAGS += -g3
 
@@ -16,11 +16,11 @@ OBJ_DIR := build
 INCLUDE_DIR := include
 INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
-SRCS := cube3d.c map.c init.c draw.c utils.c finish.c validation.c read_param.c
+SRCS := cub3d.c map.c init.c draw.c utils.c finish.c validation.c read_param.c
 SRCS += player.c mini_map.c load_params.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-SRCS_BONUS := cube3d_bonus.c
+SRCS_BONUS := cub3d_bonus.c
 OBJS_BONUS := $(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
 all: update_submodules libft mlx $(NAME)
@@ -63,9 +63,9 @@ re: fclean all
 rebonus: fclean bonus
 
 run: all
-	./cube3d maps/map2.cub
+	./cub3d maps/map2.cub
 
 check: all
-	valgrind -q --leak-check=full --suppressions=suppress.sup ./cube3d
+	valgrind -q --leak-check=full --suppressions=suppress.sup ./cub3d
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

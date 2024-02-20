@@ -6,29 +6,29 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/14 20:27:35 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:18:06 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
-void	free_texture(t_cube3d *cube3d)
+void	free_texture(t_cub3d *cub3d)
 {
-	if (cube3d->south_texture != NULL)
-		mlx_delete_texture(cube3d->south_texture);
-	if (cube3d->north_texture != NULL)
-		mlx_delete_texture(cube3d->north_texture);
-	if (cube3d->west_texture != NULL)
-		mlx_delete_texture(cube3d->west_texture);
-	if (cube3d->east_texture != NULL)
-		mlx_delete_texture(cube3d->east_texture);
+	if (cub3d->south_texture != NULL)
+		mlx_delete_texture(cub3d->south_texture);
+	if (cub3d->north_texture != NULL)
+		mlx_delete_texture(cub3d->north_texture);
+	if (cub3d->west_texture != NULL)
+		mlx_delete_texture(cub3d->west_texture);
+	if (cub3d->east_texture != NULL)
+		mlx_delete_texture(cub3d->east_texture);
 }
 
-void	free_for_finish(t_cube3d *cube3d)
+void	free_for_finish(t_cub3d *cub3d)
 {
-	free_texture(cube3d);
-	ft_free_split(cube3d->map);
-	mlx_delete_image(cube3d->mlx_ptr, cube3d->image);
+	free_texture(cub3d);
+	ft_free_split(cub3d->map);
+	mlx_delete_image(cub3d->mlx_ptr, cub3d->image);
 }
 
 void	err_exit(char *str)

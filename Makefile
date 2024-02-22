@@ -1,7 +1,7 @@
 vpath %.c src/mandatory
 vpath %.c src/bonus
 
-NAME := cub3d
+NAME := cub3D
 CFLAGS := -Wextra -Wall -Werror
 CFLAGS += -g3
 
@@ -63,9 +63,9 @@ re: fclean all
 rebonus: fclean bonus
 
 run: all
-	./cub3d maps/map2.cub
+	./$(NAME) maps/map2.cub
 
 check: all
-	valgrind -q --leak-check=full --suppressions=suppress.sup ./cub3d
+	valgrind -q --leak-check=full --suppressions=suppress.sup ./$(NAME)
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

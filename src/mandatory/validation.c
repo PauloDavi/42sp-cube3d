@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/20 18:20:46 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/22 00:29:12 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	valid_map(t_cub3d *cub3d)
 			exit(EXIT_FAILURE);
 		}
 		player_count += valid_player(cub3d->map[y++]);
+		get_player_position(cub3d, cub3d->map[y - 1], y - 1);
 	}
 	if (player_count != 1)
 	{

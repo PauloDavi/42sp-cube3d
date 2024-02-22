@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/20 18:18:06 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:10:08 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size,
-		int32_t color)
+void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 {
 	size_t	current_x;
 	size_t	current_y;
@@ -31,8 +30,7 @@ void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size,
 	}
 }
 
-void	draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
-		int32_t color)
+void	draw_circle(t_cub3d *cub3d, t_vector *center, int radius, int32_t color)
 {
 	int	x;
 	int	y;
@@ -73,5 +71,23 @@ void	draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 			vector.x++;
 		}
 		vector.y++;
+	}
+}
+
+void	draw_center_vertical_line(t_cub3d *cub3d, int x, int length, int color)
+{
+	int	y;
+	int	max_y;
+
+	max_y = (cub3d->mlx_ptr->height + length) / 2;
+	if (max_y > cub3d->mlx_ptr->height)
+		max_y = cub3d->mlx_ptr->height;
+	y = (cub3d->mlx_ptr->height - length) / 2;
+	if (y < 0)
+		y = 0;
+	while (y < max_y)
+	{
+		mlx_put_pixel(cub3d->image, x, y, color);
+		y++;
 	}
 }

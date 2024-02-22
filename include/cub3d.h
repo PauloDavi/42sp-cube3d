@@ -10,19 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "libft.h"
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
+# include <limits.h>
+# include <float.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <limits.h>
 
 # define WIDTH 1200
 # define HEIGHT 800
@@ -34,6 +35,7 @@
 # define EMPTY_COLOR 0xFFFFFFFF
 
 # define VALID_CHAR_SET "01NSEW\n "
+# define NOT_PLAYER_CHAR_SET "01 "
 # define VALID_CHAR_SET_PLAYER "NSEW"
 # define VALID_WALLS_CHAR_SET "1 "
 # define FILE_EXTENSION ".cub"
@@ -74,15 +76,15 @@ typedef struct s_cub3d
 	mlx_t			*mlx_ptr;
 	mlx_image_t		*image;
 	char			**map;
+	size_t			map_x;
 	size_t			map_y;
-	t_vector		player;
 	mlx_texture_t	*west_texture;
 	mlx_texture_t	*north_texture;
 	mlx_texture_t	*east_texture;
 	mlx_texture_t	*south_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
-	t_vector		pos;
+	t_vector		player;
 	t_vector		dir;
 	t_vector		plane;
 }					t_cub3d;
@@ -108,6 +110,8 @@ void				draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
 						int32_t color);
 void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
+void				draw_center_vertical_line(t_cub3d *cub3d, int x, int length,
+						int color);
 
 // init
 void				initialize(t_cub3d *cub3d);

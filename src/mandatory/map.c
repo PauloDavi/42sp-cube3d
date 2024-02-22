@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/20 18:18:06 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/22 00:55:39 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,19 @@ void	get_player_position(t_cub3d *cub3d, char *line, size_t current_y)
 {
 	char	*ptr;
 
-	ptr = ft_strchr(line, 'N');
-	if (ptr == NULL)
-	{
-		ptr = ft_strchr(line, 'S');
-		if (ptr == NULL)
-		{
-			ptr = ft_strchr(line, 'E');
-			if (ptr == NULL)
-				ptr = ft_strchr(line, 'W');
-		}
-	}
+	ptr = valid_charset(line, NOT_PLAYER_CHAR_SET);
 	if (ptr != NULL)
 	{
-		cub3d->player.x = ptr - line;
-		cub3d->player.y = current_y;
+		cub3d->player.x = (double)(ptr - line) + 0.5;
+		cub3d->player.y = (double)(current_y) + 0.5;
+		if (*ptr == 'N')
+			cub3d->dir.y = 1;
+		else if (*ptr == 'S')
+			cub3d->dir.y = -1;
+		else if (*ptr == 'E')
+			cub3d->dir.x = 1;
+		else if (*ptr == 'W')
+			cub3d->dir.x = -1;
 		*ptr = '0';
 	}
 }
@@ -74,6 +72,7 @@ void	normalize_map(t_cub3d *cub3d)
 	char	**new_map;
 
 	max_width = find_max_map_width(cub3d);
+	cub3d->map_x = max_width + 1;
 	clean_lines(cub3d, max_width);
 	empty_lines = get_end_empty_lines(cub3d);
 	if (empty_lines == 0)

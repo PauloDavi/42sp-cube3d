@@ -16,8 +16,8 @@
 # include "libft.h"
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
-# include <limits.h>
 # include <float.h>
+# include <limits.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -29,10 +29,12 @@
 # define HEIGHT 800
 # define MINI_MAP_TILE_SIZE 30
 # define PLAYER_SPEED 0.03
+# define PLAYER_ROTATE_SPEED 0.03
 
-# define PLAYER_COLOR 0x00FF00FF
+# define PLAYER_COLOR 0x00FFFFFF
 # define WALL_COLOR 0x000000FF
 # define EMPTY_COLOR 0xFFFFFFFF
+# define RAY_COLOR 0xFF0000FF
 
 # define VALID_CHAR_SET "01NSEW\n "
 # define NOT_PLAYER_CHAR_SET "01 "
@@ -112,6 +114,8 @@ void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
 void				draw_center_vertical_line(t_cub3d *cub3d, int x, int length,
 						int color);
+void				draw_line(t_cub3d *cub3d, t_vector *point1,
+						t_vector *point2, int color);
 
 // init
 void				initialize(t_cub3d *cub3d);

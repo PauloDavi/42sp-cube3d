@@ -92,7 +92,7 @@ void	distance_rays(t_cub3d *cub3d)
 		if (side == 1)
 			color = color / 2;
 		draw_center_vertical_line(cub3d, ray_index, cub3d->mlx_ptr->height
-			/ perp_wall_dist, color);
+				/ perp_wall_dist, color);
 		ray_index++;
 	}
 }
@@ -100,21 +100,48 @@ void	distance_rays(t_cub3d *cub3d)
 void	ft_hook(void *param)
 {
 	t_cub3d	*cub3d;
+	double	old_dir_x;
 
 	cub3d = param;
-	draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
-	distance_rays(cub3d);
-	// draw_mini_map(cub3d);
+	// draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
+	// distance_rays(cub3d);
+	draw_mini_map(cub3d);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
-	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_UP) && cub3d->player.y - PLAYER_SPEED > 0.5)
-		cub3d->player.y -= PLAYER_SPEED;
-	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_DOWN) && cub3d->player.y + PLAYER_SPEED < cub3d->map_y - 0.5)
-		cub3d->player.y += PLAYER_SPEED;
-	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_LEFT) && cub3d->player.x - PLAYER_SPEED > 0.5)
-		cub3d->player.x -= PLAYER_SPEED;
-	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_RIGHT) && cub3d->player.x + PLAYER_SPEED < cub3d->map_x - 0.5)
-		cub3d->player.x += PLAYER_SPEED;
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W))
+	{
+		if (cub3d->map[(int)(cub3d->player.y)][(int)(cub3d->player.x
+				+ cub3d->dir.x * PLAYER_SPEED)] == '0')
+			cub3d->player.x += cub3d->dir.x * PLAYER_SPEED;
+		if (cub3d->map[(int)(cub3d->player.y + cub3d->dir.y
+				* PLAYER_SPEED)][(int)(cub3d->player.x)] == '0')
+			cub3d->player.y += cub3d->dir.y * PLAYER_SPEED;
+	}
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_S))
+	{
+		if (cub3d->map[(int)(cub3d->player.y)][(int)(cub3d->player.x
+				- cub3d->dir.x * PLAYER_SPEED)] == '0')
+			cub3d->player.x -= cub3d->dir.x * PLAYER_SPEED;
+		if (cub3d->map[(int)(cub3d->player.y - cub3d->dir.y
+				* PLAYER_SPEED)][(int)(cub3d->player.x)] == '0')
+			cub3d->player.y -= cub3d->dir.y * PLAYER_SPEED;
+	}
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_A))
+	{
+		old_dir_x = cub3d->dir.x;
+		cub3d->dir.x = cub3d->dir.x * cos(-PLAYER_ROTATE_SPEED) - cub3d->dir.y
+			* sin(-PLAYER_ROTATE_SPEED);
+		cub3d->dir.y = old_dir_x * sin(-PLAYER_ROTATE_SPEED) + cub3d->dir.y
+			* cos(-PLAYER_ROTATE_SPEED);
+	}
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_D))
+	{
+		old_dir_x = cub3d->dir.x;
+		cub3d->dir.x = cub3d->dir.x * cos(PLAYER_ROTATE_SPEED) - cub3d->dir.y
+			* sin(PLAYER_ROTATE_SPEED);
+		cub3d->dir.y = old_dir_x * sin(PLAYER_ROTATE_SPEED) + cub3d->dir.y
+			* cos(PLAYER_ROTATE_SPEED);
+	}
 }
 
 int	main(int argc, char **argv)

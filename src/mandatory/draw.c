@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/22 01:10:08 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/22 22:01:12 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 		current_x = point->x;
 		while (current_x < (point->x + size))
 		{
-			mlx_put_pixel(cub3d->image, current_x, current_y, color);
+			if (current_y == point->y || current_y == (point->y + size - 1)
+				|| current_x == point->x || current_x == (point->x + size - 1))
+				mlx_put_pixel(cub3d->image, current_x, current_y, color / 2);
+			else
+				mlx_put_pixel(cub3d->image, current_x, current_y, color);
 			current_x++;
 		}
 		current_y++;
@@ -45,7 +49,7 @@ void	draw_circle(t_cub3d *cub3d, t_vector *center, int radius, int32_t color)
 		{
 			if (x * x + y * y <= hypo)
 				mlx_put_pixel(cub3d->image, center->x + x, center->y + y,
-					color);
+						color);
 			x++;
 		}
 		y++;
@@ -89,5 +93,30 @@ void	draw_center_vertical_line(t_cub3d *cub3d, int x, int length, int color)
 	{
 		mlx_put_pixel(cub3d->image, x, y, color);
 		y++;
+	}
+}
+
+void	draw_line(t_cub3d *cub3d, t_vector *point1, t_vector *point2, int color)
+{
+	int		dx;
+	int		dy;
+	int		steps;
+	float	x_increment;
+	float	y_increment;
+	float	x;
+	float	y;
+
+	dx = point2->x - point1->x;
+	dy = point2->y - point1->y;
+	steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
+	x_increment = (float)dx / steps;
+	y_increment = (float)dy / steps;
+	x = point1->x;
+	y = point1->y;
+	for (int i = 0; i <= steps; i++)
+	{
+		mlx_put_pixel(cub3d->image, (int)x, (int)y, color);
+		x += x_increment;
+		y += y_increment;
 	}
 }

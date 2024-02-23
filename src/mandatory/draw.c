@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/22 22:01:12 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/02/23 00:54:45 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_circle(t_cub3d *cub3d, t_vector *center, int radius, int32_t color)
 		{
 			if (x * x + y * y <= hypo)
 				mlx_put_pixel(cub3d->image, center->x + x, center->y + y,
-						color);
+					color);
 			x++;
 		}
 		y++;
@@ -98,22 +98,21 @@ void	draw_center_vertical_line(t_cub3d *cub3d, int x, int length, int color)
 
 void	draw_line(t_cub3d *cub3d, t_vector *point1, t_vector *point2, int color)
 {
-	int		dx;
-	int		dy;
 	int		steps;
 	float	x_increment;
 	float	y_increment;
 	float	x;
 	float	y;
 
-	dx = point2->x - point1->x;
-	dy = point2->y - point1->y;
-	steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
-	x_increment = (float)dx / steps;
-	y_increment = (float)dy / steps;
+	if (abs((int)(point2->x - point1->x)) > abs((int)(point2->y - point1->y)))
+		steps = abs((int)(point2->x - point1->x));
+	else
+		steps = abs((int)(point2->y - point1->y));
+	x_increment = (point2->x - point1->x) / steps;
+	y_increment = (point2->y - point1->y) / steps;
 	x = point1->x;
 	y = point1->y;
-	for (int i = 0; i <= steps; i++)
+	while (steps--)
 	{
 		mlx_put_pixel(cub3d->image, (int)x, (int)y, color);
 		x += x_increment;

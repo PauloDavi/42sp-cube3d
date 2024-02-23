@@ -134,6 +134,8 @@ char				*valid_charset(char *str, char *set);
 
 // player
 int					valid_player(char *line);
+void				rotate_player(t_cub3d *cub3d, double angle);
+void				move_player(t_cub3d *cub3d, double speed);
 
 // read_param
 size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);

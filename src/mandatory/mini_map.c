@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/22 22:03:39 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/02/23 00:47:08 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void		draw_players(t_cub3d *cub3d);
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point);
 
 void	draw_mini_map(t_cub3d *cub3d)
@@ -32,17 +33,25 @@ void	draw_mini_map(t_cub3d *cub3d)
 				map_point.x = (point.x * MINI_MAP_TILE_SIZE);
 				map_point.y = (point.y * MINI_MAP_TILE_SIZE);
 				draw_square(cub3d, &map_point, MINI_MAP_TILE_SIZE,
-						get_mini_map_color(cub3d, &point));
+					get_mini_map_color(cub3d, &point));
 			}
 			point.x++;
 		}
 		point.y++;
 	}
+	draw_players(cub3d);
+}
+
+static void	draw_players(t_cub3d *cub3d)
+{
+	t_vector	map_point;
+	t_vector	dir_point;
+
 	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
 	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
-	point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
-	point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
-	draw_line(cub3d, &map_point, &point, RAY_COLOR);
+	dir_point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
+	dir_point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
+	draw_line(cub3d, &map_point, &dir_point, RAY_COLOR);
 	draw_circle(cub3d, &map_point, MINI_MAP_TILE_SIZE / 6, PLAYER_COLOR);
 }
 

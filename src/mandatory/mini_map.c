@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/23 01:57:26 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/24 22:23:38 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	draw_players(t_cub3d *cub3d)
 	t_vector	map_point;
 	t_vector	dir_point;
 
+	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
+	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
 	dir_point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
 	dir_point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
 	draw_line(cub3d, &map_point, &dir_point, RAY_COLOR);

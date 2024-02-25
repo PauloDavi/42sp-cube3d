@@ -14,86 +14,85 @@
 
 void	distance_rays(t_cub3d *cub3d)
 {
-	int			ray_index;
-	double		current_ray;
 	double		delta_dist_x;
 	double		delta_dist_y;
 	int			map_x;
 	int			map_y;
 	double		side_dist_x;
 	double		side_dist_y;
-	double		perp_wall_dist;
 	int			step_x;
 	int			step_y;
 	bool		hit;
+	t_vector	dir_point;
+	t_vector	map_point;
 	int			side;
 	t_vector	ray;
-	int			color;
 
-	ray_index = 0;
-	while (ray_index < WIDTH)
+	map_x = (int)(cub3d->player.x);
+	map_y = (int)(cub3d->player.y);
+	ray.x = cub3d->dir.x;
+	ray.y = cub3d->dir.y;
+	if (ray.x == 0)
+		delta_dist_x = DBL_MAX;
+	else
+		delta_dist_x = fabs(1 / ray.x);
+	if (ray.y == 0)
+		delta_dist_y = DBL_MAX;
+	else
+		delta_dist_y = fabs(1 / ray.y);
+	if (ray.x < 0)
 	{
-		map_x = (int)(cub3d->player.x);
-		map_y = (int)(cub3d->player.y);
-		current_ray = (2 * ray_index / (double)(WIDTH - 1)) - 1;
-		ray.x = cub3d->dir.x + cub3d->plane.x * current_ray;
-		ray.y = cub3d->dir.y + cub3d->plane.y * current_ray;
-		if (ray.x == 0)
-			delta_dist_x = DBL_MAX;
-		else
-			delta_dist_x = fabs(1 / ray.x);
-		if (ray.y == 0)
-			delta_dist_y = DBL_MAX;
-		else
-			delta_dist_y = fabs(1 / ray.y);
-		if (ray.x < 0)
+		step_x = -1;
+		side_dist_x = (cub3d->player.x - map_x) * delta_dist_x;
+	}
+	else
+	{
+		step_x = 1;
+		side_dist_x = (map_x + 1.0 - cub3d->player.x) * delta_dist_x;
+	}
+	if (ray.y < 0)
+	{
+		step_y = -1;
+		side_dist_y = (cub3d->player.y - map_y) * delta_dist_y;
+	}
+	else
+	{
+		step_y = 1;
+		side_dist_y = (map_y + 1.0 - cub3d->player.y) * delta_dist_y;
+	}
+	hit = false;
+	while (hit == false)
+	{
+		if (side_dist_x < side_dist_y)
 		{
-			step_x = -1;
-			side_dist_x = (cub3d->player.x - map_x) * delta_dist_x;
+			side_dist_x += delta_dist_x;
+			map_x += step_x;
+			side = 0;
 		}
 		else
 		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - cub3d->player.x) * delta_dist_x;
+			side_dist_y += delta_dist_y;
+			map_y += step_y;
+			side = 1;
 		}
-		if (ray.y < 0)
-		{
-			step_y = 1;
-			side_dist_y = (cub3d->player.y - map_y) * delta_dist_y;
-		}
-		else
-		{
-			step_y = -1;
-			side_dist_y = (map_y + 1.0 - cub3d->player.y) * delta_dist_y;
-		}
-		hit = false;
-		while (hit == false)
-		{
-			if (side_dist_x < side_dist_y)
-			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
-				side = 0;
-			}
-			else
-			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
-				side = 1;
-			}
-			if (cub3d->map[map_y][map_x] != '0')
-				hit = true;
-		}
-		if (side == 0)
-			perp_wall_dist = (side_dist_x - delta_dist_x);
-		else
-			perp_wall_dist = (side_dist_y - delta_dist_y);
-		color = 0x00FF00;
-		if (side == 1)
-			color = color / 2;
-		draw_center_vertical_line(cub3d, ray_index, cub3d->mlx_ptr->height
-			/ perp_wall_dist, color);
-		ray_index++;
+		if (cub3d->map[map_y][map_x] != '0')
+			hit = true;
+	}
+	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
+	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
+	if (side == 0)
+	{
+		printf("side_dist_x %f\n", side_dist_x);
+		dir_point.x = (cub3d->player.x + (cub3d->dir.x * side_dist_x)) * MINI_MAP_TILE_SIZE;
+		dir_point.y = (cub3d->player.y + (cub3d->dir.y * side_dist_x)) * MINI_MAP_TILE_SIZE;
+		draw_line(cub3d, &map_point, &dir_point, RAY_COLOR / 2);
+	}
+	else
+	{
+		printf("side_dist_y %f\n", side_dist_y);
+		dir_point.x = (cub3d->player.x + (cub3d->dir.x * side_dist_y)) * MINI_MAP_TILE_SIZE;
+		dir_point.y = (cub3d->player.y + (cub3d->dir.y * side_dist_y)) * MINI_MAP_TILE_SIZE;
+		draw_line(cub3d, &map_point, &dir_point, RAY_COLOR / 2);
 	}
 }
 
@@ -103,8 +102,8 @@ void	ft_hook(void *param)
 
 	cub3d = param;
 	// draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
-	// distance_rays(cub3d);
 	draw_mini_map(cub3d);
+	distance_rays(cub3d);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W)

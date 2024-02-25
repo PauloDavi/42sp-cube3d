@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/23 00:47:08 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/23 01:57:26 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	draw_mini_map(t_cub3d *cub3d)
 		line_len = ft_strlen(cub3d->map[(size_t)point.y]);
 		while (point.x < line_len)
 		{
-			if (cub3d->map[(size_t)point.y][(size_t)point.x] != '\n')
+			if (cub3d->map[(size_t)point.y][(size_t)point.x] != '\n' && \
+				cub3d->map[(size_t)point.y][(size_t)point.x] != ' ')
 			{
 				map_point.x = (point.x * MINI_MAP_TILE_SIZE);
 				map_point.y = (point.y * MINI_MAP_TILE_SIZE);
@@ -47,12 +48,10 @@ static void	draw_players(t_cub3d *cub3d)
 	t_vector	map_point;
 	t_vector	dir_point;
 
-	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
-	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
 	dir_point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
 	dir_point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
 	draw_line(cub3d, &map_point, &dir_point, RAY_COLOR);
-	draw_circle(cub3d, &map_point, MINI_MAP_TILE_SIZE / 6, PLAYER_COLOR);
+	draw_circle(cub3d, &map_point, MINI_MAP_TILE_SIZE / 5, PLAYER_COLOR);
 }
 
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)

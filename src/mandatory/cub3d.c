@@ -17,10 +17,10 @@ void	ft_hook(void *param)
 	t_cub3d	*cub3d;
 
 	cub3d = param;
-	// draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
-	draw_mini_map(cub3d);
+	draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
+	// draw_mini_map(cub3d);
 	distance_rays(cub3d);
-	draw_player(cub3d);
+	// draw_player(cub3d);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W)

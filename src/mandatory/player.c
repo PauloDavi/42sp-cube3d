@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:31:11 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 06:44:55 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 09:58:46 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	move_player(t_cub3d *cub3d, double speed)
 	x_speed = cub3d->dir.x * speed;
 	y_speed = cub3d->dir.y * speed;
 	if (cub3d->map[(int)(cub3d->player.y)][(int)(cub3d->player.x
-			+ x_speed)] == '0')
+			+ x_speed + (get_signal(x_speed) * WALL_OFFSET))] == '0')
 		cub3d->player.x += x_speed;
 	if (cub3d->map[(int)(cub3d->player.y
-			+ y_speed)][(int)(cub3d->player.x)] == '0')
+			+ y_speed + (get_signal(y_speed) * WALL_OFFSET))][(int)(cub3d->player.x)] == '0')
 		cub3d->player.y += y_speed;
 }
 

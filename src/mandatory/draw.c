@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/24 22:23:17 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/26 09:41:56 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	draw_center_vertical_line(t_cub3d *cub3d, int x, int length, int color)
 
 	max_y = (cub3d->mlx_ptr->height + length) / 2;
 	if (max_y > cub3d->mlx_ptr->height)
-		max_y = cub3d->mlx_ptr->height;
+		max_y = cub3d->mlx_ptr->height - 1;
 	y = (cub3d->mlx_ptr->height - length) / 2;
 	if (y < 0)
 		y = 0;
-	while (y < max_y)
+	while (y <= max_y)
 	{
 		mlx_put_pixel(cub3d->image, x, y, color);
 		y++;

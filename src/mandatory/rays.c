@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 06:45:14 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 09:47:31 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	distance_rays(t_cub3d *cub3d)
 	while (ray_calc.x < WIDTH)
 	{
 		ray_calc.camera_x = (2 * ray_calc.x / (double)(WIDTH - 1)) - 1;
-		ray_calc.ray.x = cub3d->dir.x + cub3d->plane.x * ray_calc.camera_x;
-		ray_calc.ray.y = cub3d->dir.y + cub3d->plane.y * ray_calc.camera_x;
+		ray_calc.ray.x = cub3d->dir.x + (cub3d->plane.x * ray_calc.camera_x);
+		ray_calc.ray.y = cub3d->dir.y + (cub3d->plane.y * ray_calc.camera_x);
 		calc_ray(cub3d, &ray_calc);
 		ray_calc.x++;
 	}
@@ -53,6 +53,9 @@ static void	calc_distances(t_cub3d *cub3d, t_ray_calc *ray_calc)
 
 static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 {
+	double	perp_wall_dist;
+	int		color;
+
 	ray_calc->side_dist.x -= ray_calc->delta_dist.x;
 	ray_calc->side_dist.y -= ray_calc->delta_dist.y;
 	ray_calc->map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
@@ -63,7 +66,8 @@ static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 					* ray_calc->side_dist.x)) * MINI_MAP_TILE_SIZE;
 		ray_calc->dir_point.y = (cub3d->player.y + (ray_calc->ray.y
 					* ray_calc->side_dist.x)) * MINI_MAP_TILE_SIZE;
-		draw_line(cub3d, &ray_calc->map_point, &ray_calc->dir_point, RAY_COLOR);
+		perp_wall_dist = ray_calc->side_dist.x;
+		color = WALL_COLOR;
 	}
 	else
 	{
@@ -71,8 +75,12 @@ static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 					* ray_calc->side_dist.y)) * MINI_MAP_TILE_SIZE;
 		ray_calc->dir_point.y = (cub3d->player.y + (ray_calc->ray.y
 					* ray_calc->side_dist.y)) * MINI_MAP_TILE_SIZE;
-		draw_line(cub3d, &ray_calc->map_point, &ray_calc->dir_point, RAY_COLOR);
+		perp_wall_dist = ray_calc->side_dist.y;
+		color = WALL_COLOR / 2;
 	}
+	// draw_line(cub3d, &ray_calc->map_point, &ray_calc->dir_point, RAY_COLOR);
+	draw_center_vertical_line(cub3d, ray_calc->x, cub3d->mlx_ptr->height
+		/ perp_wall_dist, color);
 }
 
 static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)

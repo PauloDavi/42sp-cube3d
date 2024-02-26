@@ -32,9 +32,9 @@
 # define PLAYER_ROTATE_SPEED 0.03
 
 # define PLAYER_COLOR 0xFF0000FF
-# define WALL_COLOR 0x000000FF
-# define EMPTY_COLOR 0xFFFFFFFF
-# define RAY_COLOR 0xFF0000FF
+# define WALL_COLOR 0xFFFFFFFF
+# define EMPTY_COLOR 0x000000FF
+# define RAY_COLOR 0xFFFF00FF
 
 # define VALID_CHAR_SET "01NSEW\n "
 # define NOT_PLAYER_CHAR_SET "01 "
@@ -72,6 +72,20 @@ typedef struct s_vector
 	double			x;
 	double			y;
 }					t_vector;
+
+typedef struct s_ray_calc
+{
+	int				x;
+	int				side;
+	double			camera_x;
+	t_vector		ray;
+	t_vector		delta_dist;
+	t_vector		side_dist;
+	t_vector		step;
+	t_vector		map;
+	t_vector		map_point;
+	t_vector		dir_point;
+}					t_ray_calc;
 
 typedef struct s_cub3d
 {
@@ -121,11 +135,18 @@ void				draw_line(t_cub3d *cub3d, t_vector *point1,
 void				initialize(t_cub3d *cub3d);
 void				start_params(t_cub3d *cub3d);
 
-// util
+// utils
 char				*remove_new_line(char *str);
 bool				is_empty_line(char *str);
 size_t				get_file_size(char *map_file);
 size_t				find_max_map_width(t_cub3d *cub3d);
+
+// math_utils
+double				safe_ray_dist_calc(double ray);
+int					get_signal(double num);
+
+// rays
+void				distance_rays(t_cub3d *cub3d);
 
 // validation
 char				*valid_args(int argc, char **argv);
@@ -136,6 +157,7 @@ char				*valid_charset(char *str, char *set);
 int					valid_player(char *line);
 void				rotate_player(t_cub3d *cub3d, double angle);
 void				move_player(t_cub3d *cub3d, double speed);
+void				draw_player(t_cub3d *cub3d);
 
 // read_param
 size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);

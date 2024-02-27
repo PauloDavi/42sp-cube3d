@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:07:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/22 00:29:12 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 23:12:48 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	valid_walls(t_cub3d *cub3d)
 		|| valid_charset(cub3d->map[cub3d->map_y - 1],
 			VALID_WALLS_CHAR_SET) != NULL)
 	{
+		free_texture(cub3d);
 		ft_free_split(cub3d->map);
 		err_exit(ERR_INVALID_OPEN_MAP);
 	}
@@ -71,9 +72,8 @@ void	valid_map(t_cub3d *cub3d)
 		invalid_char = valid_charset(cub3d->map[y], VALID_CHAR_SET);
 		if (invalid_char != NULL)
 		{
-			ft_free_split(cub3d->map);
 			ft_fprintf(STDERR_FILENO, ERR_INVALID_CHAR, *invalid_char);
-			exit(EXIT_FAILURE);
+			free_map_and_texture(cub3d);
 		}
 		player_count += valid_player(cub3d->map[y++]);
 		get_player_position(cub3d, cub3d->map[y - 1], y - 1);
@@ -81,8 +81,7 @@ void	valid_map(t_cub3d *cub3d)
 	if (player_count != 1)
 	{
 		ft_fprintf(STDERR_FILENO, ERR_INVALID_PLAYER, player_count);
-		ft_free_split(cub3d->map);
-		exit(EXIT_FAILURE);
+		free_map_and_texture(cub3d);
 	}
 	valid_walls(cub3d);
 }
@@ -116,12 +115,14 @@ static void	valid_open_wall(t_cub3d *cub3d, size_t x, size_t y)
 		if (x == 0 || cub3d->map[y][x + 1] == '\0')
 		{
 			ft_free_split(cub3d->map);
+			free_texture(cub3d);
 			err_exit(ERR_INVALID_OPEN_MAP);
 		}
 		if (cub3d->map[y + 1][x] == ' ' || cub3d->map[y - 1][x] == ' '
 			|| cub3d->map[y][x + 1] == ' ' || cub3d->map[y][x - 1] == ' ')
 		{
 			ft_free_split(cub3d->map);
+			free_texture(cub3d);
 			err_exit(ERR_INVALID_OPEN_MAP);
 		}
 	}

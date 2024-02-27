@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:28:28 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 21:50:50 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 23:12:58 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,11 @@ size_t	find_max_map_width(t_cub3d *cub3d)
 		i++;
 	}
 	return (max);
+}
+
+void	free_map_and_texture(t_cub3d *cub3d)
+{
+	ft_free_split(cub3d->map);
+	free_texture(cub3d);
+	exit(EXIT_FAILURE);
 }

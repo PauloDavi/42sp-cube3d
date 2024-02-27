@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:49:42 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/26 22:33:07 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 23:09:16 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void		check_params_map(t_cub3d *cub3d, int fd, char *str);
 static size_t	skip_empty_lines(t_cub3d *cub3d, int fd, char **line);
-static void		invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words, char *str);
+static void		invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words,
+					char *str);
 
 size_t	parse_parameters(t_cub3d *cub3d, int fd, char **map_line)
 {
@@ -90,7 +91,8 @@ static void	check_params_map(t_cub3d *cub3d, int fd, char *str)
 		invalid_parameter_exit(cub3d, fd, words, ERR_INVALID_TEXTURE_COLOR);
 }
 
-static void	invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words, char *str)
+static void	invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words,
+		char *str)
 {
 	free_memory(fd);
 	free_texture(cub3d);

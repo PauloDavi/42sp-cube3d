@@ -51,7 +51,7 @@
 # define FLOOR "F"
 # define CEILING "C"
 
-# define ERR_INVALID_CHAR "Error\nInvalid map char '%d'\n"
+# define ERR_INVALID_CHAR "Error\nInvalid map char '%c'\n"
 # define ERR_INVALID_PLAYER "Error\nInvalid number of players '%d'\n"
 # define ERR_INVALID_TEXTURE_COLOR "Error\nInvalid map texture or map color\n"
 # define ERR_INVALID_PARAMETER "Error\nInvalid parameter\n"
@@ -113,6 +113,7 @@ void				err_exit(char *str);
 void				close_err_exit(int fd, char *str);
 void				close_free_err_exit(int fd, char **arr, char *err_message);
 void				free_texture(t_cub3d *cub3d);
+void				free_map_and_texture(t_cub3d *cub3d);
 
 // map
 void				read_map(t_cub3d *cub3d, char *map_file);

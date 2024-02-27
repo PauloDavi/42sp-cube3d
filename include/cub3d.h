@@ -37,6 +37,7 @@
 # define RAY_COLOR 0xFFFF00FF
 # define WALL_OFFSET 0.7
 
+# define GAME_NAME "Cub3D"
 # define VALID_CHAR_SET "01NSEW\n "
 # define NOT_PLAYER_CHAR_SET "01 "
 # define VALID_CHAR_SET_PLAYER "NSEW"

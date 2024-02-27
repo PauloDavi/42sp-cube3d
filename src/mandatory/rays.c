@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 09:47:31 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 22:52:27 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	distance_rays(t_cub3d *cub3d)
 	t_ray_calc	ray_calc;
 
 	ray_calc.x = 0;
-	while (ray_calc.x < WIDTH)
+	while (ray_calc.x < cub3d->mlx_ptr->width)
 	{
-		ray_calc.camera_x = (2 * ray_calc.x / (double)(WIDTH - 1)) - 1;
+		ray_calc.camera_x = (2 * ray_calc.x / (double)(cub3d->mlx_ptr->width - 1)) - 1;
 		ray_calc.ray.x = cub3d->dir.x + (cub3d->plane.x * ray_calc.camera_x);
 		ray_calc.ray.y = cub3d->dir.y + (cub3d->plane.y * ray_calc.camera_x);
 		calc_ray(cub3d, &ray_calc);

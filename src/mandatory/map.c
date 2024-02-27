@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/23 01:39:54 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:51:10 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void	read_map(t_cub3d *cub3d, char *map_file)
 	int		fd;
 	char	*line;
 
-	fd = open(map_file, O_RDONLY);
-	if (fd == -1)
-		err_exit(ERR_INVALID_MAP_FILE);
 	lines_size = get_file_size(map_file);
 	if (lines_size == 0)
 		err_exit(ERR_INVALID_EMPTY_FILE);
+	fd = open(map_file, O_RDONLY);
 	lines_size -= parse_parameters(cub3d, fd, &line);
 	cub3d->map = malloc((lines_size + 1) * sizeof(char *));
 	if (cub3d->map == NULL)

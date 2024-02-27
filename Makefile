@@ -66,6 +66,6 @@ run: all
 	./$(NAME) maps/map2.cub
 
 check: all
-	valgrind -q --leak-check=full --suppressions=suppress.sup ./$(NAME)
+	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=suppress.sup ./$(NAME) maps/map2.cub
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_param.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:49:42 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/20 18:18:06 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:33:07 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void		check_params_map(t_cub3d *cub3d, int fd, char *str);
 static size_t	skip_empty_lines(t_cub3d *cub3d, int fd, char **line);
+static void		invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words, char *str);
 
 size_t	parse_parameters(t_cub3d *cub3d, int fd, char **map_line)
 {
@@ -33,7 +34,8 @@ size_t	parse_parameters(t_cub3d *cub3d, int fd, char **map_line)
 		line = remove_new_line(line);
 		if (!is_empty_line(line))
 			check_params_map(cub3d, fd, line);
-		free(line);
+		else
+			free(line);
 		if (cub3d->south_texture != NULL && cub3d->south_texture != NULL
 			&& cub3d->west_texture != NULL && cub3d->east_texture != NULL
 			&& cub3d->ceiling_color != -1 && cub3d->floor_color != -1)
@@ -69,8 +71,9 @@ static void	check_params_map(t_cub3d *cub3d, int fd, char *str)
 	size_t	size;
 
 	words = ft_split_size(str, ' ', &size);
+	free(str);
 	if (size != 2)
-		close_free_err_exit(fd, words, ERR_INVALID_PARAMETER);
+		invalid_parameter_exit(cub3d, fd, words, ERR_INVALID_PARAMETER);
 	if (!ft_strncmp(words[0], NORTH, 3))
 		load_texture(cub3d, &cub3d->north_texture, fd, words);
 	else if (!ft_strncmp(words[0], SOUTH, 3))
@@ -84,8 +87,12 @@ static void	check_params_map(t_cub3d *cub3d, int fd, char *str)
 	else if (!ft_strncmp(words[0], CEILING, 2))
 		load_color(cub3d, &cub3d->ceiling_color, fd, words);
 	else
-	{
-		free_texture(cub3d);
-		close_free_err_exit(fd, words, ERR_INVALID_TEXTURE_COLOR);
-	}
+		invalid_parameter_exit(cub3d, fd, words, ERR_INVALID_TEXTURE_COLOR);
+}
+
+static void	invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words, char *str)
+{
+	free_memory(fd);
+	free_texture(cub3d);
+	close_free_err_exit(fd, words, str);
 }

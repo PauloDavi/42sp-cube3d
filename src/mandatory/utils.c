@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:28:28 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 06:31:34 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 21:50:50 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ size_t	get_file_size(char *map_file)
 	lines_size = 0;
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
-		exit(EXIT_FAILURE);
+		err_exit(ERR_INVALID_MAP_FILE);
 	while (true)
 	{
 		line = get_next_line(fd);

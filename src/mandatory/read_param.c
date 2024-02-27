@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:49:42 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/26 23:09:16 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/26 23:22:13 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	check_params_map(t_cub3d *cub3d, int fd, char *str)
 static void	invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words,
 		char *str)
 {
-	free_memory(fd);
+	free_gnl_memory(fd);
 	free_texture(cub3d);
 	close_free_err_exit(fd, words, str);
 }

@@ -17,10 +17,6 @@ void	ft_hook(void *param)
 	t_cub3d	*cub3d;
 
 	cub3d = param;
-	mlx_delete_image(cub3d->mlx_ptr, cub3d->image);
-	cub3d->image = mlx_new_image(cub3d->mlx_ptr, cub3d->mlx_ptr->width,
-			cub3d->mlx_ptr->height);
-	mlx_image_to_window(cub3d->mlx_ptr, cub3d->image, 0, 0);
 	draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
 	// draw_mini_map(cub3d);
 	distance_rays(cub3d);

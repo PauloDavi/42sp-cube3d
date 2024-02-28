@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/24 22:23:17 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:04:22 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 		}
 		current_y++;
 	}
+}
+
+void	draw_players(t_cub3d *cub3d)
+{
+	t_vector	map_point;
+	t_vector	dir_point;
+	t_vector	plane_point;
+
+	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
+	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
+	dir_point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
+	dir_point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
+	plane_point.x = (cub3d->player.x + cub3d->dir.x + cub3d->plane.x) * MINI_MAP_TILE_SIZE;
+	plane_point.y = (cub3d->player.y + cub3d->dir.y + cub3d->plane.y) * MINI_MAP_TILE_SIZE;
+	draw_line(cub3d, &dir_point, &plane_point, RAY_COLOR);
+	plane_point.x = (cub3d->player.x + cub3d->dir.x - cub3d->plane.x) * MINI_MAP_TILE_SIZE;
+	plane_point.y = (cub3d->player.y + cub3d->dir.y - cub3d->plane.y) * MINI_MAP_TILE_SIZE;
+	draw_line(cub3d, &dir_point, &plane_point, RAY_COLOR);
+	draw_line(cub3d, &map_point, &dir_point, RAY_COLOR);
+	draw_circle(cub3d, &map_point, MINI_MAP_TILE_SIZE / 5, PLAYER_COLOR);
 }
 
 void	draw_circle(t_cub3d *cub3d, t_vector *center, int radius, int32_t color)

@@ -116,6 +116,7 @@ void				draw_center_vertical_line(t_cub3d *cub3d, int x, int length,
 						int color);
 void				draw_line(t_cub3d *cub3d, t_vector *point1,
 						t_vector *point2, int color);
+void				draw_players(t_cub3d *cub3d);
 
 // init
 void				initialize(t_cub3d *cub3d);
@@ -135,7 +136,7 @@ char				*valid_charset(char *str, char *set);
 // player
 int					valid_player(char *line);
 void				rotate_player(t_cub3d *cub3d, double angle);
-void				move_player(t_cub3d *cub3d, double speed);
+void				move_player(t_cub3d *cub3d, double speed, int angle);
 
 // read_param
 size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);
@@ -145,5 +146,8 @@ void				load_texture(t_cub3d *cub3d, mlx_texture_t **texture,
 						int fd, char **words);
 void				load_color(t_cub3d *cub3d, int64_t *color, int fd,
 						char **words);
+
+// ray
+void				distance_rays(t_cub3d *cub3d);
 
 #endif

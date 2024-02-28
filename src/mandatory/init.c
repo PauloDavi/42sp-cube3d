@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/22 00:20:14 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:49:00 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	start_params(t_cub3d *cub3d)
 {
 	cub3d->dir.x = 0;
 	cub3d->dir.y = 0;
-	cub3d->plane.x = 0;
-	cub3d->plane.y = 0.66;
+	cub3d->plane.x = 0.66;
+	cub3d->plane.y = 0;
 	cub3d->west_texture = NULL;
 	cub3d->north_texture = NULL;
 	cub3d->east_texture = NULL;

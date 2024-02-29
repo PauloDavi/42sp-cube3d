@@ -1,9 +1,9 @@
 
 
-NO ./maps/croissant.png
-SO ./maps/croissant.png
-WE ./maps/croissant.png
-EA ./maps/croissant.png
+NO ./maps/greystone.png
+SO ./maps/mossy.png
+WE ./maps/purplestone.png
+EA ./maps/redbrick.png
 
 F 100,100,0
 

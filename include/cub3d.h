@@ -75,11 +75,25 @@ typedef struct s_vector
 	double			y;
 }					t_vector;
 
+typedef struct s_draw_wall
+{
+	int		tex_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_y;
+	int		color;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
+}			t_draw_wall;
+
 typedef struct s_ray_calc
 {
 	int				x;
 	int				side;
 	double			camera_x;
+	double			perp_wall_dist;
 	t_vector		ray;
 	t_vector		delta_dist;
 	t_vector		side_dist;
@@ -129,8 +143,8 @@ void				draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
 						int32_t color);
 void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
-void				draw_center_vertical_line(t_cub3d *cub3d, int x, int length,
-						int color);
+void				draw_center_vertical_line(t_cub3d *cub3d,
+						t_ray_calc *ray_calc, mlx_texture_t *texture);
 void				draw_line(t_cub3d *cub3d, t_vector *point1,
 						t_vector *point2, int color);
 
@@ -143,6 +157,7 @@ char				*remove_new_line(char *str);
 bool				is_empty_line(char *str);
 size_t				get_file_size(char *map_file);
 size_t				find_max_map_width(t_cub3d *cub3d);
+uint32_t			rgb_to_int(uint8_t *rgb);
 
 // math_utils
 double				safe_ray_dist_calc(double ray);

@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 23:08:17 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/28 23:46:49 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,29 @@ static void	calc_distances(t_cub3d *cub3d, t_ray_calc *ray_calc)
 
 static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 {
-	double	perp_wall_dist;
-	int		color;
+	mlx_texture_t	*texture;
 
 	ray_calc->side_dist.x -= ray_calc->delta_dist.x;
 	ray_calc->side_dist.y -= ray_calc->delta_dist.y;
-	ray_calc->map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
-	ray_calc->map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
+	if (ray_calc->side == 0)
+		ray_calc->perp_wall_dist = ray_calc->side_dist.x;
+	else
+		ray_calc->perp_wall_dist = ray_calc->side_dist.y;
 	if (ray_calc->side == 0)
 	{
-		ray_calc->dir_point.x = (cub3d->player.x + (ray_calc->ray.x
-					* ray_calc->side_dist.x)) * MINI_MAP_TILE_SIZE;
-		ray_calc->dir_point.y = (cub3d->player.y + (ray_calc->ray.y
-					* ray_calc->side_dist.x)) * MINI_MAP_TILE_SIZE;
-		perp_wall_dist = ray_calc->side_dist.x;
-		color = WALL_COLOR;
+		if (ray_calc->ray.x > 0)
+			texture = cub3d->east_texture;
+		else
+			texture = cub3d->west_texture;
 	}
 	else
 	{
-		ray_calc->dir_point.x = (cub3d->player.x + (ray_calc->ray.x
-					* ray_calc->side_dist.y)) * MINI_MAP_TILE_SIZE;
-		ray_calc->dir_point.y = (cub3d->player.y + (ray_calc->ray.y
-					* ray_calc->side_dist.y)) * MINI_MAP_TILE_SIZE;
-		perp_wall_dist = ray_calc->side_dist.y;
-		color = WALL_COLOR / 2;
+		if (ray_calc->ray.y > 0)
+			texture = cub3d->south_texture;
+		else
+			texture = cub3d->north_texture;
 	}
-	// draw_line(cub3d, &ray_calc->map_point, &ray_calc->dir_point, RAY_COLOR);
-	draw_center_vertical_line(cub3d, ray_calc->x, cub3d->mlx_ptr->height
-		/ perp_wall_dist, color);
+	draw_center_vertical_line(cub3d, ray_calc, texture);
 }
 
 static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)

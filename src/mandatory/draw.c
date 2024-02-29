@@ -6,11 +6,14 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 09:41:56 by paulo            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:12:53 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
+				t_draw_wall *draw_wall, mlx_texture_t *texture);
 
 void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 {
@@ -75,24 +78,6 @@ void	draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 			vector.x++;
 		}
 		vector.y++;
-	}
-}
-
-void	draw_center_vertical_line(t_cub3d *cub3d, int x, int length, int color)
-{
-	int	y;
-	int	max_y;
-
-	max_y = (cub3d->mlx_ptr->height + length) / 2;
-	if (max_y > cub3d->mlx_ptr->height)
-		max_y = cub3d->mlx_ptr->height - 1;
-	y = (cub3d->mlx_ptr->height - length) / 2;
-	if (y < 0)
-		y = 0;
-	while (y <= max_y)
-	{
-		mlx_put_pixel(cub3d->image, x, y, color);
-		y++;
 	}
 }
 

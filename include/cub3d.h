@@ -25,8 +25,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 10000
+# define HEIGHT 10000
 # define MINI_MAP_TILE_SIZE 30
 # define PLAYER_SPEED 0.08
 # define PLAYER_ROTATE_SPEED 0.03

@@ -12,9 +12,6 @@
 
 #include "cub3d.h"
 
-static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
-				t_draw_wall *draw_wall, mlx_texture_t *texture);
-
 void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 {
 	size_t	current_x;

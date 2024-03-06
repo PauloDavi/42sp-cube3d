@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 23:00:53 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/05 20:55:53 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	initialize(t_cub3d *cub3d)
 {
-	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, GAME_NAME, true);
+	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, GAME_NAME, false);
 	if (cub3d->mlx_ptr == NULL)
 	{
 		puts(mlx_strerror(mlx_errno));

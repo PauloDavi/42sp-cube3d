@@ -25,8 +25,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define WIDTH 10000
-# define HEIGHT 10000
+# define WIDTH 1280
+# define HEIGHT 720
 # define MINI_MAP_TILE_SIZE 30
 # define PLAYER_SPEED 0.08
 # define PLAYER_ROTATE_SPEED 0.03
@@ -35,7 +35,7 @@
 # define WALL_COLOR 0xFFFFFFFF
 # define EMPTY_COLOR 0x000000FF
 # define RAY_COLOR 0xFFFF00FF
-# define WALL_OFFSET 0.7
+# define WALL_OFFSET 0.3
 
 # define GAME_NAME "Cub3D"
 # define VALID_CHAR_SET "01NSEW\n "

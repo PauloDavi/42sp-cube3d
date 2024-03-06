@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/02/26 21:51:10 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/05 20:45:49 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,22 @@ void	get_player_position(t_cub3d *cub3d, char *line, size_t current_y)
 		if (*ptr == 'N')
 			cub3d->dir.y = -1;
 		else if (*ptr == 'S')
+		{
+			cub3d->plane.x = -0.66;
 			cub3d->dir.y = 1;
+		}
 		else if (*ptr == 'E')
+		{
+			cub3d->plane.y = 0.66;
+			cub3d->plane.x = 0;
 			cub3d->dir.x = 1;
+		}
 		else if (*ptr == 'W')
+		{
+			cub3d->plane.y = -0.66;
+			cub3d->plane.x = 0;
 			cub3d->dir.x = -1;
+		}
 		*ptr = '0';
 	}
 }

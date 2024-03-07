@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/05 20:55:53 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:40:04 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	initialize(t_cub3d *cub3d)
 {
+	int	x_pos;
+	int	y_pos;
+
 	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, GAME_NAME, false);
 	if (cub3d->mlx_ptr == NULL)
 	{
@@ -33,6 +36,9 @@ void	initialize(t_cub3d *cub3d)
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
+	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
+	cub3d->mouse.x = y_pos;
+	cub3d->mouse.y = y_pos;
 }
 
 void	start_params(t_cub3d *cub3d)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 00:04:57 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:31:36 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 			handler_door(cub3d, ray_calc);
 			break ;
 		}
-		else if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0')
+		else if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0' && cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '3')
 			break ;
 		if (ray_calc->side_dist.x < ray_calc->side_dist.y)
 			ray_calc->side_dist.x += ray_calc->delta_dist.x;

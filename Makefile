@@ -17,7 +17,7 @@ INCLUDE_DIR := include
 INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
 SRCS := cub3d.c map.c init.c draw.c utils.c finish.c validation.c read_param.c
-SRCS += player.c mini_map.c load_params.c math_utils.c rays.c walls.c
+SRCS += player.c mini_map.c load_params.c math_utils.c rays.c walls.c door.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 SRCS_BONUS := cub3d_bonus.c

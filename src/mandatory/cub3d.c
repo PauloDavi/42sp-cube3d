@@ -43,6 +43,8 @@ void	ft_hook(void *param)
 		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_LEFT))
 		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_SPACE))
+		verify_door(cub3d);
 	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
 	if (x_pos > cub3d->mouse.x)
 		rotate_player(cub3d, PLAYER_ROTATE_SPEED);

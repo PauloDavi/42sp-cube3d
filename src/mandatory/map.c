@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 21:50:55 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/05 20:45:49 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/08 00:06:08 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,21 @@ void	get_player_position(t_cub3d *cub3d, char *line, size_t current_y)
 	{
 		cub3d->player.x = (double)(ptr - line) + 0.5;
 		cub3d->player.y = (double)(current_y) + 0.5;
-		if (*ptr == 'N')
-			cub3d->dir.y = -1;
-		else if (*ptr == 'S')
+		if (*ptr == 'S')
 		{
 			cub3d->plane.x = -0.66;
 			cub3d->dir.y = 1;
 		}
-		else if (*ptr == 'E')
+		else if (*ptr == 'E' || *ptr == 'W')
 		{
+			cub3d->plane.x = 0;
 			cub3d->plane.y = 0.66;
-			cub3d->plane.x = 0;
 			cub3d->dir.x = 1;
-		}
-		else if (*ptr == 'W')
-		{
-			cub3d->plane.y = -0.66;
-			cub3d->plane.x = 0;
-			cub3d->dir.x = -1;
+			cub3d->dir.y = 0;
+			if (*ptr == 'W')
+				cub3d->plane.y = -0.66;
+			if (*ptr == 'W')
+				cub3d->dir.x = -1;
 		}
 		*ptr = '0';
 	}

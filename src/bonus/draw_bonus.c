@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:26:10 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/29 10:12:53 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_square(t_cub3d *cub3d, t_vector *point, size_t size, int32_t color)
 {
@@ -99,5 +99,22 @@ void	draw_line(t_cub3d *cub3d, t_vector *point1, t_vector *point2, int color)
 		mlx_put_pixel(cub3d->image, (int)x, (int)y, color);
 		x += x_increment;
 		y += y_increment;
+	}
+}
+
+void	clear_view(t_cub3d *cub3d)
+{
+	t_vector	point;
+
+	point.y = 0;
+	while (point.y < cub3d->mlx_ptr->height)
+	{
+		point.x = 0;
+		while (point.x < cub3d->mlx_ptr->width)
+		{
+			mlx_put_pixel(cub3d->image, point.x, point.y, 0);
+			point.x++;
+		}
+		point.y++;
 	}
 }

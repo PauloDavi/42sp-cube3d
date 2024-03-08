@@ -35,13 +35,13 @@
 # define WALL_COLOR 0xFFFFFFFF
 # define EMPTY_COLOR 0x000000FF
 # define RAY_COLOR 0xFFFF00FF
-# define WALL_OFFSET 0.2
+# define WALL_OFFSET 0.3
 
 # define GAME_NAME "Cub3D"
-# define VALID_CHAR_SET "0123NSEW\n "
-# define NOT_PLAYER_CHAR_SET "0123 "
+# define VALID_CHAR_SET "01NSEW\n "
+# define NOT_PLAYER_CHAR_SET "01 "
 # define VALID_CHAR_SET_PLAYER "NSEW"
-# define VALID_WALLS_CHAR_SET "123 "
+# define VALID_WALLS_CHAR_SET "1 "
 # define FILE_EXTENSION ".cub"
 
 # define WEST "WE"
@@ -116,14 +116,10 @@ typedef struct s_cub3d
 	mlx_texture_t	*south_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
-	t_vector		mouse;
 	t_vector		player;
 	t_vector		dir;
 	t_vector		plane;
 }					t_cub3d;
-
-// door
-void				verify_door(t_cub3d *cub3d);
 
 // finish
 void				free_for_finish(t_cub3d *cub3d);
@@ -147,12 +143,10 @@ void				draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
 						int32_t color);
 void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
-void	draw_center_vertical_line(t_cub3d *cub3d,
-								t_ray_calc *ray_calc,
-								mlx_texture_t *texture);
+void				draw_center_vertical_line(t_cub3d *cub3d,
+						t_ray_calc *ray_calc, mlx_texture_t *texture);
 void				draw_line(t_cub3d *cub3d, t_vector *point1,
 						t_vector *point2, int color);
-void				clear_view(t_cub3d *cub3d);
 
 // init
 void				initialize(t_cub3d *cub3d);
@@ -181,7 +175,7 @@ char				*valid_charset(char *str, char *set);
 int					valid_player(char *line);
 void				rotate_player(t_cub3d *cub3d, double angle);
 void				move_player(t_cub3d *cub3d, double speed, int signal);
-void				draw_player(t_cub3d *cub3d, double scale);
+void				draw_player(t_cub3d *cub3d);
 
 // read_param
 size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);
@@ -191,10 +185,5 @@ void				load_texture(t_cub3d *cub3d, mlx_texture_t **texture,
 						int fd, char **words);
 void				load_color(t_cub3d *cub3d, int64_t *color, int fd,
 						char **words);
-
-// walls
-void	draw_center_vertical_line(t_cub3d *cub3d,
-								t_ray_calc *ray_calc,
-								mlx_texture_t *texture);
 
 #endif

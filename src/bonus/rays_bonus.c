@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rays.c                                             :+:      :+:    :+:   */
+/*   rays_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/28 23:46:49 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	calc_distances(t_cub3d *cub3d, t_ray_calc *ray_calc);
-static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc);
+static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc);
+static bool	is_wall(t_cub3d *cub3d, t_ray_calc *ray_calc);
 static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc);
 
 void	distance_rays(t_cub3d *cub3d)
@@ -52,12 +53,10 @@ static void	calc_distances(t_cub3d *cub3d, t_ray_calc *ray_calc)
 			* ray_calc->delta_dist.y;
 }
 
-static void	draw_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
+static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 {
 	mlx_texture_t	*texture;
 
-	ray_calc->side_dist.x -= ray_calc->delta_dist.x;
-	ray_calc->side_dist.y -= ray_calc->delta_dist.y;
 	if (ray_calc->side == 0)
 		ray_calc->perp_wall_dist = ray_calc->side_dist.x;
 	else
@@ -87,18 +86,33 @@ static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 	{
 		if (ray_calc->side_dist.x < ray_calc->side_dist.y)
 		{
-			ray_calc->side_dist.x += ray_calc->delta_dist.x;
 			ray_calc->map.x += ray_calc->step.x;
 			ray_calc->side = 0;
 		}
 		else
 		{
-			ray_calc->side_dist.y += ray_calc->delta_dist.y;
 			ray_calc->map.y += ray_calc->step.y;
 			ray_calc->side = 1;
 		}
-		if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0')
+		if (is_wall(cub3d, ray_calc))
 			break ;
+		if (ray_calc->side_dist.x < ray_calc->side_dist.y)
+			ray_calc->side_dist.x += ray_calc->delta_dist.x;
+		else
+			ray_calc->side_dist.y += ray_calc->delta_dist.y;
 	}
-	draw_ray(cub3d, ray_calc);
+	draw_wall(cub3d, ray_calc);
+}
+
+static bool	is_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
+{
+	if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] == '2')
+	{
+		handler_door(cub3d, ray_calc);
+		return (true);
+	}
+	else if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0'
+		&& cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '3')
+		return (true);
+	return (false);
 }

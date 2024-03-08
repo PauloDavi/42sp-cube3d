@@ -10,9 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
-void	ft_hook(void *param)
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_cub3d	*cub3d;
+
+	cub3d = param;
+	if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_SPACE)
+		verify_door(cub3d);
+}
+
+void	main_hook(void *param)
 {
 	t_cub3d	*cub3d;
 
@@ -35,6 +44,22 @@ void	ft_hook(void *param)
 		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
 }
 
+void	mouse_hook(void *param)
+{
+	t_cub3d	*cub3d;
+	int		x_pos;
+	int		y_pos;
+
+	cub3d = param;
+	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
+	if (x_pos > cub3d->mouse.x)
+		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
+	if (x_pos < cub3d->mouse.x)
+		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
+	cub3d->mouse.x = x_pos;
+	cub3d->mouse.y = y_pos;
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	cub3d;
@@ -44,7 +69,10 @@ int	main(int argc, char **argv)
 	normalize_map(&cub3d);
 	valid_map(&cub3d);
 	initialize(&cub3d);
-	mlx_loop_hook(cub3d.mlx_ptr, ft_hook, &cub3d);
+	mlx_set_cursor_mode(cub3d.mlx_ptr, MLX_MOUSE_DISABLED);
+	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
+	mlx_loop_hook(cub3d.mlx_ptr, mouse_hook, &cub3d);
+	mlx_key_hook(cub3d.mlx_ptr, key_hook, &cub3d);
 	mlx_loop(cub3d.mlx_ptr);
 	free_for_finish(&cub3d);
 	mlx_terminate(cub3d.mlx_ptr);

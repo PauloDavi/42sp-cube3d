@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_map.c                                         :+:      :+:    :+:   */
+/*   mini_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 06:21:01 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point);
 
 void	draw_mini_map(t_cub3d *cub3d)
 {
-	size_t		line_len;
 	t_vector	point;
 	t_vector	map_point;
+	double		scale;
 
 	point.y = 0;
+	if (cub3d->map_y > cub3d->map_x)
+		scale = cub3d->mlx_ptr->height / (cub3d->map_y - 1);
+	else
+		scale = cub3d->mlx_ptr->width / (cub3d->map_x - 1);
 	while (point.y < cub3d->map_y)
 	{
 		point.x = 0;
-		line_len = ft_strlen(cub3d->map[(size_t)point.y]);
-		while (point.x < line_len)
+		while (point.x < cub3d->map_x - 1)
 		{
-			if (cub3d->map[(size_t)point.y][(size_t)point.x] != '\n'
-				&& cub3d->map[(size_t)point.y][(size_t)point.x] != ' ')
-			{
-				map_point.x = (point.x * MINI_MAP_TILE_SIZE);
-				map_point.y = (point.y * MINI_MAP_TILE_SIZE);
-				draw_square(cub3d, &map_point, MINI_MAP_TILE_SIZE,
-					get_mini_map_color(cub3d, &point));
-			}
+			map_point.x = (point.x * scale);
+			map_point.y = (point.y * scale);
+			draw_square(cub3d, &map_point, scale, get_mini_map_color(cub3d,
+					&point));
 			point.x++;
 		}
 		point.y++;
 	}
+	draw_player(cub3d, scale);
 }
 
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)

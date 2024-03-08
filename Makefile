@@ -17,10 +17,13 @@ INCLUDE_DIR := include
 INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
 SRCS := cub3d.c map.c init.c draw.c utils.c finish.c validation.c read_param.c
-SRCS += player.c mini_map.c load_params.c math_utils.c rays.c walls.c door.c
+SRCS += player.c mini_map.c load_params.c math_utils.c rays.c walls.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-SRCS_BONUS := cub3d_bonus.c
+SRCS_BONUS := cub3d_bonus.c door_bonus.c draw_bonus.c finish_bonus.c init_bonus.c
+SRCS_BONUS += load_params_bonus.c map_bonus.c math_utils_bonus.c mini_map_bonus.c
+SRCS_BONUS += player_bonus.c rays_bonus.c read_param_bonus.c utils_bonus.c
+SRCS_BONUS += validation_bonus.c walls_bonus.c
 OBJS_BONUS := $(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
 all: update_submodules libft mlx $(NAME)
@@ -46,7 +49,7 @@ $(OBJ_DIR):
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(INCLUDES) $(CFLAGS) -o $(NAME)
 
-bonus: libft $(OBJS_BONUS)
+bonus: update_submodules libft mlx $(OBJS_BONUS)
 	@$(CC) $(OBJS_BONUS) $(LIBS) $(INCLUDES) $(CFLAGS) -o $(NAME)
 
 clean: 
@@ -63,9 +66,12 @@ re: fclean all
 rebonus: fclean bonus
 
 run: all
-	./$(NAME) maps/map2.cub
+	./$(NAME) maps/map.cub
+
+bun: bonus
+	./$(NAME) maps/map_bonus.cub
 
 check: all
-	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=suppress.sup ./$(NAME) maps/map2.cub
+	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=suppress.sup ./$(NAME) maps/map.cub
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

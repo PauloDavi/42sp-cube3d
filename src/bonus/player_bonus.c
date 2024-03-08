@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:31:11 by paulo             #+#    #+#             */
-/*   Updated: 2024/02/26 20:23:59 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	valid_player(char *line)
 {
@@ -63,33 +63,22 @@ void	move_player(t_cub3d *cub3d, double speed, int signal)
 		y_speed = signal * cub3d->dir.x * speed;
 	}
 	if (cub3d->map[(int)(cub3d->player.y)][(int)(cub3d->player.x + x_speed
-			+ (get_signal(x_speed) * WALL_OFFSET))] == '0')
+			+ (get_signal(x_speed) * WALL_OFFSET))] == '0'
+		|| cub3d->map[(int)(cub3d->player.y)][(int)(cub3d->player.x + x_speed
+			+ (get_signal(x_speed) * WALL_OFFSET))] == '3')
 		cub3d->player.x += x_speed;
 	if (cub3d->map[(int)(cub3d->player.y + y_speed + (get_signal(y_speed)
-				* WALL_OFFSET))][(int)(cub3d->player.x)] == '0')
+				* WALL_OFFSET))][(int)(cub3d->player.x)] == '0'
+		|| cub3d->map[(int)(cub3d->player.y + y_speed + (get_signal(y_speed)
+				* WALL_OFFSET))][(int)(cub3d->player.x)] == '3')
 		cub3d->player.y += y_speed;
 }
 
-void	draw_player(t_cub3d *cub3d)
+void	draw_player(t_cub3d *cub3d, double scale)
 {
 	t_vector	map_point;
-	t_vector	dir_point;
-	t_vector	plane_point;
 
-	map_point.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
-	map_point.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
-	dir_point.x = (cub3d->player.x + cub3d->dir.x) * MINI_MAP_TILE_SIZE;
-	dir_point.y = (cub3d->player.y + cub3d->dir.y) * MINI_MAP_TILE_SIZE;
-	plane_point.x = (cub3d->player.x + cub3d->dir.x + cub3d->plane.x)
-		* MINI_MAP_TILE_SIZE;
-	plane_point.y = (cub3d->player.y + cub3d->dir.y + cub3d->plane.y)
-		* MINI_MAP_TILE_SIZE;
-	draw_line(cub3d, &dir_point, &plane_point, PLAYER_COLOR);
-	plane_point.x = (cub3d->player.x + cub3d->dir.x - cub3d->plane.x)
-		* MINI_MAP_TILE_SIZE;
-	plane_point.y = (cub3d->player.y + cub3d->dir.y - cub3d->plane.y)
-		* MINI_MAP_TILE_SIZE;
-	draw_line(cub3d, &dir_point, &plane_point, PLAYER_COLOR);
-	draw_line(cub3d, &map_point, &dir_point, PLAYER_COLOR);
-	draw_circle(cub3d, &map_point, MINI_MAP_TILE_SIZE / 5, PLAYER_COLOR);
+	map_point.x = cub3d->player.x * scale;
+	map_point.y = cub3d->player.y * scale;
+	draw_circle(cub3d, &map_point, scale / 5, PLAYER_COLOR);
 }

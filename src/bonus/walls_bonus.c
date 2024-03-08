@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   walls.c                                            :+:      :+:    :+:   */
+/*   walls_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:13:00 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/04 21:51:32 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
-		t_draw_wall *draw_wall, mlx_texture_t *texture);
+				t_draw_wall *draw_wall, mlx_texture_t *texture);
 
 void	draw_center_vertical_line(t_cub3d *cub3d, t_ray_calc *ray_calc,
 		mlx_texture_t *texture)

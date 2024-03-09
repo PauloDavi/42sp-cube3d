@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:13:00 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 18:05:38 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
 		draw_wall->color = rgb_to_int(&texture->pixels[(texture->height
 					* draw_wall->tex_y + draw_wall->tex_x)
 				* texture->bytes_per_pixel]);
-		if (ray_calc->side == 1)
-			draw_wall->color = (draw_wall->color >> 1) & 0x7F7F7FFF;
 		mlx_put_pixel(cub3d->image, ray_calc->x, y, draw_wall->color);
 		y++;
 	}

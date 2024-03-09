@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_param_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:49:42 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 17:25:40 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ size_t	parse_parameters(t_cub3d *cub3d, int fd, char **map_line)
 			free(line);
 		if (cub3d->south_texture != NULL && cub3d->south_texture != NULL
 			&& cub3d->west_texture != NULL && cub3d->east_texture != NULL
+			&& cub3d->door_texture != NULL && cub3d->wall_door_texture != NULL
 			&& cub3d->ceiling_color != -1 && cub3d->floor_color != -1)
 			break ;
 	}
@@ -83,6 +84,10 @@ static void	check_params_map(t_cub3d *cub3d, int fd, char *str)
 		load_texture(cub3d, &cub3d->west_texture, fd, words);
 	else if (!ft_strncmp(words[0], EAST, 3))
 		load_texture(cub3d, &cub3d->east_texture, fd, words);
+	else if (!ft_strncmp(words[0], DOOR, 3))
+		load_texture(cub3d, &cub3d->door_texture, fd, words);
+	else if (!ft_strncmp(words[0], WALL_DOOR, 3))
+		load_texture(cub3d, &cub3d->wall_door_texture, fd, words);
 	else if (!ft_strncmp(words[0], FLOOR, 2))
 		load_color(cub3d, &cub3d->floor_color, fd, words);
 	else if (!ft_strncmp(words[0], CEILING, 2))

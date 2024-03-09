@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 18:03:51 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	distance_rays(t_cub3d *cub3d)
 	ray_calc.x = 0;
 	while (ray_calc.x < cub3d->mlx_ptr->width)
 	{
+		ray_calc.is_door = false;
+		ray_calc.is_door_wall = false;
 		ray_calc.camera_x = (2 * ray_calc.x / (double)(cub3d->mlx_ptr->width
 					- 1)) - 1;
 		ray_calc.ray.x = cub3d->dir.x + (cub3d->plane.x * ray_calc.camera_x);
@@ -63,14 +65,22 @@ static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 		ray_calc->perp_wall_dist = ray_calc->side_dist.y;
 	if (ray_calc->side == 0)
 	{
-		if (ray_calc->ray.x > 0)
+		if (ray_calc->is_door)
+			texture = cub3d->door_texture;
+		else if (ray_calc->is_door_wall)
+			texture = cub3d->wall_door_texture;
+		else if (ray_calc->ray.x > 0)
 			texture = cub3d->east_texture;
 		else
 			texture = cub3d->west_texture;
 	}
 	else
 	{
-		if (ray_calc->ray.y > 0)
+		if (ray_calc->is_door)
+			texture = cub3d->door_texture;
+		else if (ray_calc->is_door_wall)
+			texture = cub3d->wall_door_texture;
+		else if (ray_calc->ray.y > 0)
 			texture = cub3d->south_texture;
 		else
 			texture = cub3d->north_texture;
@@ -106,13 +116,25 @@ static void	calc_ray(t_cub3d *cub3d, t_ray_calc *ray_calc)
 
 static bool	is_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 {
+	int	map_x;
+	int	map_y;
+
+	map_x = ray_calc->map.x;
+	map_y = ray_calc->map.y;
 	if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] == '2')
 	{
-		handler_door(cub3d, ray_calc);
+		handler_door(ray_calc);
 		return (true);
 	}
 	else if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0'
-		&& cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '3')
+			&& cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '3')
+	{
+		if (ray_calc->side == 0)
+			map_x -= ray_calc->step.x;
+		else
+			map_y -= ray_calc->step.y;
+		ray_calc->is_door_wall = cub3d->map[map_y][map_x] == '3';
 		return (true);
+	}
 	return (false);
 }

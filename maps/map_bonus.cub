@@ -1,12 +1,11 @@
-
-
 NO ./maps/textures/purplestone.png
 SO ./maps/textures/mossy.png
 WE ./maps/textures/wood.png
 EA ./maps/textures/redbrick.png
+DO ./maps/textures/door.png
+WD ./maps/textures/door_wall.png
 
 F 100,100,0
-
 C 225,100,0
 
 1111111111111111111

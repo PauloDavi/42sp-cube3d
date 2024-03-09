@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:35:58 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 18:02:57 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static void	toggle_door(t_cub3d *cub3d, int x, int y);
 
-void	handler_door(t_cub3d *cub3d, t_ray_calc *ray_calc)
+void	handler_door(t_ray_calc *ray_calc)
 {
 	double	wall_x;
 
-	(void)cub3d;
 	if (ray_calc->side == 0)
 	{
 		wall_x = fabs(ray_calc->ray.x * (ray_calc->side_dist.x
@@ -37,6 +36,10 @@ void	handler_door(t_cub3d *cub3d, t_ray_calc *ray_calc)
 		else
 			ray_calc->side = 0;
 	}
+	if (wall_x > 0.5)
+		ray_calc->is_door = true;
+	else
+		ray_calc->is_door_wall = true;
 }
 
 void	verify_door(t_cub3d *cub3d)

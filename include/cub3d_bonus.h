@@ -52,6 +52,8 @@
 # define NORTH "NO"
 # define EAST "EA"
 # define SOUTH "SO"
+# define DOOR "DO"
+# define WALL_DOOR "WD"
 # define FLOOR "F"
 # define CEILING "C"
 
@@ -105,6 +107,8 @@ typedef struct s_ray_calc
 	t_vector		map;
 	t_vector		map_point;
 	t_vector		dir_point;
+	bool			is_door;
+	bool			is_door_wall;
 }					t_ray_calc;
 
 typedef struct s_cub3d
@@ -119,6 +123,8 @@ typedef struct s_cub3d
 	mlx_texture_t	*north_texture;
 	mlx_texture_t	*east_texture;
 	mlx_texture_t	*south_texture;
+	mlx_texture_t	*door_texture;
+	mlx_texture_t	*wall_door_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
 	t_vector		mouse;
@@ -129,7 +135,7 @@ typedef struct s_cub3d
 
 // door
 void				verify_door(t_cub3d *cub3d);
-void				handler_door(t_cub3d *cub3d, t_ray_calc *ray_calc);
+void				handler_door(t_ray_calc *ray_calc);
 
 // finish
 void				free_for_finish(t_cub3d *cub3d);

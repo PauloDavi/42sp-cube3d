@@ -6,7 +6,7 @@
 /*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 16:22:54 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:18:23 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	start_params(t_cub3d *cub3d)
 	cub3d->north_texture = NULL;
 	cub3d->east_texture = NULL;
 	cub3d->south_texture = NULL;
+	cub3d->door_texture = NULL;
+	cub3d->wall_door_texture = NULL;
 	cub3d->floor_color = -1;
 	cub3d->ceiling_color = -1;
 }

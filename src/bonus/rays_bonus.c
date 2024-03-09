@@ -6,7 +6,7 @@
 /*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 18:03:51 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:13:09 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,9 @@ static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 	else
 		ray_calc->perp_wall_dist = ray_calc->side_dist.y;
 	if (ray_calc->side == 0)
-	{
-		if (ray_calc->is_door)
-			texture = cub3d->door_texture;
-		else if (ray_calc->is_door_wall)
-			texture = cub3d->wall_door_texture;
-		else if (ray_calc->ray.x > 0)
-			texture = cub3d->east_texture;
-		else
-			texture = cub3d->west_texture;
-	}
+		texture = get_texture(cub3d, ray_calc, ray_calc->ray.x);
 	else
-	{
-		if (ray_calc->is_door)
-			texture = cub3d->door_texture;
-		else if (ray_calc->is_door_wall)
-			texture = cub3d->wall_door_texture;
-		else if (ray_calc->ray.y > 0)
-			texture = cub3d->south_texture;
-		else
-			texture = cub3d->north_texture;
-	}
+		texture = get_texture(cub3d, ray_calc, ray_calc->ray.y);
 	draw_center_vertical_line(cub3d, ray_calc, texture);
 }
 

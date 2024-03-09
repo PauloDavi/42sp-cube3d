@@ -30,11 +30,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_D))
 		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), -1);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_RIGHT))
-		rotate_player(cub3d, (PLAYER_ROTATE_SPEED
-					* cub3d->mlx_ptr->delta_time));
+		rotate_player(cub3d, PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_LEFT))
-		rotate_player(cub3d, (-PLAYER_ROTATE_SPEED
-					* cub3d->mlx_ptr->delta_time));
+		rotate_player(cub3d, -PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
 }
 
 int	main(int argc, char **argv)

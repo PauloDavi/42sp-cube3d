@@ -6,14 +6,14 @@
 /*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:13:00 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 18:05:38 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:11:57 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
-				t_draw_wall *draw_wall, mlx_texture_t *texture);
+static void		draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
+					t_draw_wall *draw_wall, mlx_texture_t *texture);
 
 void	draw_center_vertical_line(t_cub3d *cub3d, t_ray_calc *ray_calc,
 		mlx_texture_t *texture)
@@ -61,4 +61,16 @@ static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
 		mlx_put_pixel(cub3d->image, ray_calc->x, y, draw_wall->color);
 		y++;
 	}
+}
+
+mlx_texture_t	*get_texture(t_cub3d *cub3d, t_ray_calc *ray_calc, double ray)
+{
+	if (ray_calc->is_door)
+		return (cub3d->door_texture);
+	else if (ray_calc->is_door_wall)
+		return (cub3d->wall_door_texture);
+	else if (ray > 0)
+		return (cub3d->south_texture);
+	else
+		return (cub3d->north_texture);
 }

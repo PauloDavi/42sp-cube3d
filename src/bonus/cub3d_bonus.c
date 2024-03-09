@@ -28,6 +28,7 @@ void	main_hook(void *param)
 	cub3d = param;
 	draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
 	distance_rays(cub3d);
+	draw_mini_map(cub3d);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W))
@@ -44,14 +45,11 @@ void	main_hook(void *param)
 		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
 }
 
-void	mouse_hook(void *param)
+void	mouse_hook(double x_pos, double y_pos, void *param)
 {
 	t_cub3d	*cub3d;
-	int		x_pos;
-	int		y_pos;
 
 	cub3d = param;
-	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
 	if (x_pos > cub3d->mouse.x)
 		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
 	if (x_pos < cub3d->mouse.x)
@@ -71,7 +69,7 @@ int	main(int argc, char **argv)
 	initialize(&cub3d);
 	mlx_set_cursor_mode(cub3d.mlx_ptr, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
-	mlx_loop_hook(cub3d.mlx_ptr, mouse_hook, &cub3d);
+	mlx_cursor_hook(cub3d.mlx_ptr, &mouse_hook, &cub3d);
 	mlx_key_hook(cub3d.mlx_ptr, key_hook, &cub3d);
 	mlx_loop(cub3d.mlx_ptr);
 	free_for_finish(&cub3d);

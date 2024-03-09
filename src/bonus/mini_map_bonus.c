@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 00:20:26 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	draw_mini_map(t_cub3d *cub3d)
 
 	point.y = 0;
 	if (cub3d->map_y > cub3d->map_x)
-		scale = cub3d->mlx_ptr->height / (cub3d->map_y - 1);
+		scale = MINI_MAP_HEIGHT / (cub3d->map_y - 1);
 	else
-		scale = cub3d->mlx_ptr->width / (cub3d->map_x - 1);
+		scale = MINI_MAP_WIDTH / (cub3d->map_x - 1);
 	while (point.y < cub3d->map_y)
 	{
 		point.x = 0;
@@ -54,5 +54,9 @@ static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)
 		color = WALL_COLOR;
 	else if (cub3d->map[y][x] == '0')
 		color = EMPTY_COLOR;
+	else if (cub3d->map[y][x] == '3')
+		color = OPEN_DOOR_COLOR;
+	else if (cub3d->map[y][x] == '2')
+		color = CLOSE_DOOR_COLOR;
 	return (color);
 }

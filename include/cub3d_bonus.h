@@ -27,13 +27,17 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define MINI_MAP_WIDTH 200
+# define MINI_MAP_HEIGHT 200
 # define MINI_MAP_TILE_SIZE 30
 # define PLAYER_SPEED 0.08
 # define PLAYER_ROTATE_SPEED 0.03
 
-# define PLAYER_COLOR 0xFF0000FF
-# define WALL_COLOR 0xFFFFFFFF
-# define EMPTY_COLOR 0x000000FF
+# define PLAYER_COLOR 0xFF00007F
+# define WALL_COLOR 0xFFFFFF7F
+# define EMPTY_COLOR 0x0000007F
+# define OPEN_DOOR_COLOR 0x000FFF7F
+# define CLOSE_DOOR_COLOR 0x00FFFF7F
 # define RAY_COLOR 0xFFFF00FF
 # define WALL_OFFSET 0.2
 
@@ -107,6 +111,7 @@ typedef struct s_cub3d
 {
 	mlx_t			*mlx_ptr;
 	mlx_image_t		*image;
+	mlx_image_t		*mini_image;
 	char			**map;
 	size_t			map_x;
 	size_t			map_y;

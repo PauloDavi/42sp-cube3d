@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 00:21:47 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	free_for_finish(t_cub3d *cub3d)
 	free_texture(cub3d);
 	ft_free_split(cub3d->map);
 	mlx_delete_image(cub3d->mlx_ptr, cub3d->image);
+	mlx_delete_image(cub3d->mlx_ptr, cub3d->mini_image);
 }
 
 void	err_exit(char *str)

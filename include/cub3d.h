@@ -27,14 +27,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define MINI_MAP_TILE_SIZE 30
 # define PLAYER_SPEED 0.08
 # define PLAYER_ROTATE_SPEED 0.03
-
-# define PLAYER_COLOR 0xFF0000FF
-# define WALL_COLOR 0xFFFFFFFF
-# define EMPTY_COLOR 0x000000FF
-# define RAY_COLOR 0xFFFF00FF
 # define WALL_OFFSET 0.3
 
 # define GAME_NAME "Cub3D"
@@ -131,22 +125,15 @@ void				free_map_and_texture(t_cub3d *cub3d);
 
 // map
 void				read_map(t_cub3d *cub3d, char *map_file);
-void				draw_mini_map(t_cub3d *cub3d);
 void				get_player_position(t_cub3d *cub3d, char *line,
 						size_t current_y);
 void				normalize_map(t_cub3d *cub3d);
 
 // draw
-void				draw_square(t_cub3d *cub3d, t_vector *point, size_t size,
-						int32_t color);
-void				draw_circle(t_cub3d *cub3d, t_vector *center, int radius,
-						int32_t color);
 void				draw_wallpaper(t_cub3d *cub3d, int32_t floor_color,
 						int32_t ceiling_color);
 void				draw_center_vertical_line(t_cub3d *cub3d,
 						t_ray_calc *ray_calc, mlx_texture_t *texture);
-void				draw_line(t_cub3d *cub3d, t_vector *point1,
-						t_vector *point2, int color);
 
 // init
 void				initialize(t_cub3d *cub3d);
@@ -175,7 +162,6 @@ char				*valid_charset(char *str, char *set);
 int					valid_player(char *line);
 void				rotate_player(t_cub3d *cub3d, double angle);
 void				move_player(t_cub3d *cub3d, double speed, int signal);
-void				draw_player(t_cub3d *cub3d);
 
 // read_param
 size_t				parse_parameters(t_cub3d *cub3d, int fd, char **map_line);

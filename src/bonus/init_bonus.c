@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 00:23:40 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/09 16:22:54 by pdavi-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	init_mini_image(t_cub3d *cub3d)
 		mlx_close_window(cub3d->mlx_ptr);
 		exit(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(cub3d->mlx_ptr, cub3d->mini_image, 0, 0) == -1)
+	if (mlx_image_to_window(cub3d->mlx_ptr, cub3d->mini_image, 10, 10) == -1)
 	{
 		mlx_delete_image(cub3d->mlx_ptr, cub3d->image);
 		mlx_delete_image(cub3d->mlx_ptr, cub3d->mini_image);

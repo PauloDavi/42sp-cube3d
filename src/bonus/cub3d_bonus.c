@@ -12,6 +12,8 @@
 
 #include "cub3d_bonus.h"
 
+static void	mouse_move(t_cub3d *cub3d);
+
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_cub3d	*cub3d;
@@ -32,28 +34,34 @@ void	main_hook(void *param)
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W))
-		move_player(cub3d, PLAYER_SPEED, 0);
+		move_player(cub3d, (PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 0);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_S))
-		move_player(cub3d, -PLAYER_SPEED, 0);
+		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 0);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_A))
-		move_player(cub3d, -PLAYER_SPEED, 1);
+		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 1);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_D))
-		move_player(cub3d, -PLAYER_SPEED, -1);
+		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), -1);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_RIGHT))
-		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
+		rotate_player(cub3d, (PLAYER_ROTATE_SPEED
+					* cub3d->mlx_ptr->delta_time));
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_LEFT))
-		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
+		rotate_player(cub3d, (-PLAYER_ROTATE_SPEED
+					* cub3d->mlx_ptr->delta_time));
+	mouse_move(cub3d);
 }
 
-void	mouse_hook(double x_pos, double y_pos, void *param)
+static void	mouse_move(t_cub3d *cub3d)
 {
-	t_cub3d	*cub3d;
+	int	x_pos;
+	int	y_pos;
 
-	cub3d = param;
+	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
 	if (x_pos > cub3d->mouse.x)
-		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
+		rotate_player(cub3d, (PLAYER_ROTATE_SPEED
+					* cub3d->mlx_ptr->delta_time));
 	if (x_pos < cub3d->mouse.x)
-		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
+		rotate_player(cub3d, (-PLAYER_ROTATE_SPEED
+					* cub3d->mlx_ptr->delta_time));
 	cub3d->mouse.x = x_pos;
 	cub3d->mouse.y = y_pos;
 }
@@ -69,7 +77,6 @@ int	main(int argc, char **argv)
 	initialize(&cub3d);
 	mlx_set_cursor_mode(cub3d.mlx_ptr, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
-	mlx_cursor_hook(cub3d.mlx_ptr, &mouse_hook, &cub3d);
 	mlx_key_hook(cub3d.mlx_ptr, key_hook, &cub3d);
 	mlx_loop(cub3d.mlx_ptr);
 	free_for_finish(&cub3d);

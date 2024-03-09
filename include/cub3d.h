@@ -27,8 +27,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define PLAYER_SPEED 0.08
-# define PLAYER_ROTATE_SPEED 0.03
+# define PLAYER_SPEED 3
+# define PLAYER_ROTATE_SPEED 2
 # define WALL_OFFSET 0.3
 
 # define GAME_NAME "Cub3D"

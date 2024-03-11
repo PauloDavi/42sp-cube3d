@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 18:13:09 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/10 00:00:13 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 		ray_calc->perp_wall_dist = ray_calc->side_dist.x;
 	else
 		ray_calc->perp_wall_dist = ray_calc->side_dist.y;
+	cub3d->z_buffer[ray_calc->x] = ray_calc->perp_wall_dist;
 	if (ray_calc->side == 0)
 		texture = get_texture(cub3d, ray_calc, ray_calc->ray.x);
 	else

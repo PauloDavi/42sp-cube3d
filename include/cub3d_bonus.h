@@ -43,10 +43,10 @@
 # define INIT_MOUSE_VALUE -1
 
 # define GAME_NAME "Cub3D"
-# define VALID_CHAR_SET "0123NSEW\n "
-# define NOT_PLAYER_CHAR_SET "0123 "
+# define VALID_CHAR_SET "01234NSEW\n "
+# define NOT_PLAYER_CHAR_SET "01234 "
 # define VALID_CHAR_SET_PLAYER "NSEW"
-# define VALID_WALLS_CHAR_SET "123 "
+# define VALID_WALLS_CHAR_SET "1234 "
 # define FILE_EXTENSION ".cub"
 
 # define WEST "WE"
@@ -55,6 +55,7 @@
 # define SOUTH "SO"
 # define DOOR "DO"
 # define WALL_DOOR "WD"
+# define SPRITE "S1"
 # define FLOOR "F"
 # define CEILING "C"
 
@@ -81,6 +82,12 @@ typedef struct s_vector
 	double			x;
 	double			y;
 }					t_vector;
+
+typedef struct s_sprite
+{
+	t_vector		position;
+	mlx_texture_t	*texture;
+}					t_sprite;
 
 typedef struct s_draw_wall
 {
@@ -126,13 +133,20 @@ typedef struct s_cub3d
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*door_texture;
 	mlx_texture_t	*wall_door_texture;
+	mlx_texture_t	*sprite_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
 	t_vector		mouse;
 	t_vector		player;
 	t_vector		dir;
 	t_vector		plane;
+	t_list			*sprites_list;
+	double			z_buffer[WIDTH];
 }					t_cub3d;
+
+// sprites
+void				load_sprits(t_cub3d *cub3d);
+void				draw_sprits(t_cub3d *cub3d);
 
 // door
 void				verify_door(t_cub3d *cub3d);

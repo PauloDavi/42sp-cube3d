@@ -22,7 +22,7 @@ OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 SRCS_BONUS := cub3d_bonus.c door_bonus.c draw_bonus.c finish_bonus.c init_bonus.c
 SRCS_BONUS += load_params_bonus.c map_bonus.c math_utils_bonus.c mini_map_bonus.c
-SRCS_BONUS += player_bonus.c rays_bonus.c read_param_bonus.c utils_bonus.c
+SRCS_BONUS += player_bonus.c rays_bonus.c read_param_bonus.c utils_bonus.c sprits_bonus.c
 SRCS_BONUS += validation_bonus.c walls_bonus.c
 OBJS_BONUS := $(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
@@ -73,5 +73,8 @@ bun: bonus
 
 check: all
 	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=suppress.sup ./$(NAME) maps/map.cub
+
+bheck: bonus
+	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=suppress.sup ./$(NAME) maps/map_bonus.cub
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules

@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 00:21:47 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/10 19:50:28 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ void	free_texture(t_cub3d *cub3d)
 		mlx_delete_texture(cub3d->west_texture);
 	if (cub3d->east_texture != NULL)
 		mlx_delete_texture(cub3d->east_texture);
+	if (cub3d->door_texture != NULL)
+		mlx_delete_texture(cub3d->door_texture);
+	if (cub3d->wall_door_texture != NULL)
+		mlx_delete_texture(cub3d->wall_door_texture);
+	if (cub3d->sprite_texture != NULL)
+		mlx_delete_texture(cub3d->sprite_texture);
 }
 
 void	free_for_finish(t_cub3d *cub3d)
 {
 	free_texture(cub3d);
 	ft_free_split(cub3d->map);
+	ft_lstclear(&cub3d->sprites_list, free);
 	mlx_delete_image(cub3d->mlx_ptr, cub3d->image);
 	mlx_delete_image(cub3d->mlx_ptr, cub3d->mini_image);
 }

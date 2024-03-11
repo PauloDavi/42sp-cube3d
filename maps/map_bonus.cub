@@ -4,6 +4,7 @@ WE ./maps/textures/wood.png
 EA ./maps/textures/redbrick.png
 DO ./maps/textures/door.png
 WD ./maps/textures/door_wall.png
+S1 ./maps/textures/barrel.png
 
 F 100,100,0
 C 225,100,0
@@ -14,6 +15,6 @@ C 225,100,0
 1000000010000000001
 1112111111113111111
 1000000010000000001
-100000002000S000001
+100000002400S000401
 1000000010000000001
 1111111111111111111

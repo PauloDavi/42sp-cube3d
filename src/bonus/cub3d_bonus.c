@@ -30,6 +30,7 @@ void	main_hook(void *param)
 	cub3d = param;
 	draw_wallpaper(cub3d, cub3d->floor_color, cub3d->ceiling_color);
 	distance_rays(cub3d);
+	draw_sprits(cub3d);
 	draw_mini_map(cub3d);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
@@ -71,6 +72,7 @@ int	main(int argc, char **argv)
 	normalize_map(&cub3d);
 	valid_map(&cub3d);
 	initialize(&cub3d);
+	load_sprits(&cub3d);
 	mlx_set_cursor_mode(cub3d.mlx_ptr, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
 	mlx_key_hook(cub3d.mlx_ptr, key_hook, &cub3d);

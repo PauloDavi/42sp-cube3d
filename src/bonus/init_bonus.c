@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 17:18:23 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/09 22:44:10 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static void	init_mini_image(t_cub3d *cub3d);
 
 void	initialize(t_cub3d *cub3d)
 {
-	int	x_pos;
-	int	y_pos;
-
 	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, GAME_NAME, false);
 	if (cub3d->mlx_ptr == NULL)
 		exit(EXIT_FAILURE);
@@ -35,9 +32,6 @@ void	initialize(t_cub3d *cub3d)
 		exit(EXIT_FAILURE);
 	}
 	init_mini_image(cub3d);
-	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
-	cub3d->mouse.x = y_pos;
-	cub3d->mouse.y = y_pos;
 }
 
 static void	init_mini_image(t_cub3d *cub3d)
@@ -65,6 +59,8 @@ void	start_params(t_cub3d *cub3d)
 	cub3d->dir.y = -1;
 	cub3d->plane.x = 0.66;
 	cub3d->plane.y = 0;
+	cub3d->mouse.x = INIT_MOUSE_VALUE;
+	cub3d->mouse.y = INIT_MOUSE_VALUE;
 	cub3d->west_texture = NULL;
 	cub3d->north_texture = NULL;
 	cub3d->east_texture = NULL;

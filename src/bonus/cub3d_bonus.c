@@ -54,9 +54,9 @@ static void	mouse_move(t_cub3d *cub3d)
 	int	y_pos;
 
 	mlx_get_mouse_pos(cub3d->mlx_ptr, &x_pos, &y_pos);
-	if (x_pos > cub3d->mouse.x)
+	if (x_pos > cub3d->mouse.x && cub3d->mouse.x != INIT_MOUSE_VALUE)
 		rotate_player(cub3d, PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
-	if (x_pos < cub3d->mouse.x)
+	if (x_pos < cub3d->mouse.x && cub3d->mouse.x != INIT_MOUSE_VALUE)
 		rotate_player(cub3d, -PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
 	cub3d->mouse.x = x_pos;
 	cub3d->mouse.y = y_pos;

@@ -40,6 +40,7 @@
 # define CLOSE_DOOR_COLOR 0x00FFFF7F
 # define RAY_COLOR 0xFFFF00FF
 # define WALL_OFFSET 0.2
+# define INIT_MOUSE_VALUE -1
 
 # define GAME_NAME "Cub3D"
 # define VALID_CHAR_SET "0123NSEW\n "

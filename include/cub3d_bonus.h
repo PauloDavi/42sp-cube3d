@@ -252,6 +252,6 @@ void				load_color(t_cub3d *cub3d, int64_t *color, int fd,
 void				draw_center_vertical_line(t_cub3d *cub3d,
 						t_ray_calc *ray_calc, mlx_texture_t *texture);
 mlx_texture_t		*get_texture(t_cub3d *cub3d, t_ray_calc *ray_calc,
-						double ray);
+						double ray, bool is_x);
 
 #endif

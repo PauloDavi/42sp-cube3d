@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/11 19:54:51 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:38:05 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static void	draw_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 		ray_calc->perp_wall_dist = ray_calc->side_dist.y;
 	cub3d->z_buffer[ray_calc->x] = ray_calc->perp_wall_dist;
 	if (ray_calc->side == 0)
-		texture = get_texture(cub3d, ray_calc, ray_calc->ray.x);
+		texture = get_texture(cub3d, ray_calc, ray_calc->ray.x, true);
 	else
-		texture = get_texture(cub3d, ray_calc, ray_calc->ray.y);
+		texture = get_texture(cub3d, ray_calc, ray_calc->ray.y, false);
 	draw_center_vertical_line(cub3d, ray_calc, texture);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:13:00 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 18:11:57 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:40:03 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,18 @@ static void	draw_tex_wall(t_cub3d *cub3d, t_ray_calc *ray_calc,
 	}
 }
 
-mlx_texture_t	*get_texture(t_cub3d *cub3d, t_ray_calc *ray_calc, double ray)
+mlx_texture_t	*get_texture(t_cub3d *cub3d, t_ray_calc *ray_calc, double ray,
+		bool is_x)
 {
 	if (ray_calc->is_door)
 		return (cub3d->door_texture);
 	else if (ray_calc->is_door_wall)
 		return (cub3d->wall_door_texture);
-	else if (ray > 0)
+	else if (ray > 0 && is_x)
+		return (cub3d->east_texture);
+	else if (ray < 0 && is_x)
+		return (cub3d->west_texture);
+	else if (ray > 0 && !is_x)
 		return (cub3d->south_texture);
 	else
 		return (cub3d->north_texture);

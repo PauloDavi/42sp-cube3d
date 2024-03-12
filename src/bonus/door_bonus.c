@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdavi-al <pdavi-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:35:58 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/09 18:02:57 by pdavi-al         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:11:30 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,25 @@ static void	toggle_door(t_cub3d *cub3d, int x, int y)
 
 	player_x = (int)(cub3d->player.x);
 	player_y = (int)(cub3d->player.y);
-	if (cub3d->map[player_y + y][player_x + x] == '2')
-		cub3d->map[player_y + y][player_x + x] = '3';
-	else if (cub3d->map[player_y + y][player_x + x] == '3')
-		cub3d->map[player_y + y][player_x + x] = '2';
+	if (cub3d->map[player_y + y][player_x + x] == 'D')
+		cub3d->map[player_y + y][player_x + x] = 'O';
+	else if (cub3d->map[player_y + y][player_x + x] == 'O')
+		cub3d->map[player_y + y][player_x + x] = 'D';
+}
+
+bool	load_extra_texture(t_cub3d *cub3d, char **words, int fd)
+{
+	if (!ft_strncmp(words[0], DOOR, 3))
+		load_texture(cub3d, &cub3d->door_texture, fd, words);
+	else if (!ft_strncmp(words[0], WALL_DOOR, 3))
+		load_texture(cub3d, &cub3d->wall_door_texture, fd, words);
+	else if (!ft_strncmp(words[0], SPRITE_1, 3))
+		load_texture(cub3d, &cub3d->sprite_1_texture, fd, words);
+	else if (!ft_strncmp(words[0], SPRITE_2, 3))
+		load_texture(cub3d, &cub3d->sprite_2_texture, fd, words);
+	else if (!ft_strncmp(words[0], SPRITE_3, 3))
+		load_texture(cub3d, &cub3d->sprite_3_texture, fd, words);
+	else
+		return (false);
+	return (true);
 }

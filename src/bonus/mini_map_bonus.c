@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:26:30 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/09 00:20:26 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/11 19:54:57 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)
 		color = WALL_COLOR;
 	else if (cub3d->map[y][x] == '0')
 		color = EMPTY_COLOR;
-	else if (cub3d->map[y][x] == '3')
+	else if (cub3d->map[y][x] == 'D')
 		color = OPEN_DOOR_COLOR;
-	else if (cub3d->map[y][x] == '2')
+	else if (cub3d->map[y][x] == 'O')
 		color = CLOSE_DOOR_COLOR;
 	return (color);
 }

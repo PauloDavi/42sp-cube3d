@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   sprits_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 23:54:42 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/10 12:20:33 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/11 22:15:33 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	load_sprits(t_cub3d *cub3d)
+static mlx_texture_t	*select_texture(t_cub3d *cub3d, char c);
+
+void	load_sprites(t_cub3d *cub3d)
 {
 	size_t		x;
 	size_t		y;
@@ -24,12 +26,13 @@ void	load_sprits(t_cub3d *cub3d)
 		x = 0;
 		while (x < cub3d->map_x)
 		{
-			if (cub3d->map[y][x] == '4')
+			if (cub3d->map[y][x] == '2' || cub3d->map[y][x] == '3'
+				|| cub3d->map[y][x] == '4')
 			{
 				sprite = malloc(sizeof(t_sprite));
 				sprite->position.x = x + 0.5;
 				sprite->position.y = y + 0.5;
-				sprite->texture = cub3d->sprite_texture;
+				sprite->texture = select_texture(cub3d, cub3d->map[y][x]);
 				ft_lstadd_back(&cub3d->sprites_list, ft_lstnew(sprite));
 				cub3d->map[y][x] = '0';
 			}
@@ -39,53 +42,89 @@ void	load_sprits(t_cub3d *cub3d)
 	}
 }
 
-void	draw_sprits(t_cub3d *cub3d)
+static mlx_texture_t	*select_texture(t_cub3d *cub3d, char c)
 {
-	t_list *lst;
-	t_sprite *sprite;
+	if (c == '2')
+		return (cub3d->sprite_1_texture);
+	else if (c == '3')
+		return (cub3d->sprite_2_texture);
+	else
+		return (cub3d->sprite_3_texture);
+}
 
-	lst = cub3d->sprites_list;
-	while (lst != NULL)
+void	calc_sprites_distance(t_cub3d *cub3d, t_sprite_calc *calc,
+		t_sprite *sprite)
+{
+	calc->sprite_pos.x = sprite->position.x - cub3d->player.x;
+	calc->sprite_pos.y = sprite->position.y - cub3d->player.y;
+	calc->inv_det = 1.0 / (cub3d->plane.x * cub3d->dir.y - cub3d->dir.x
+			* cub3d->plane.y);
+	calc->transform.x = calc->inv_det * (cub3d->dir.y * calc->sprite_pos.x
+			- cub3d->dir.x * calc->sprite_pos.y);
+	calc->transform.y = calc->inv_det * (-cub3d->plane.y * calc->sprite_pos.x
+			+ cub3d->plane.x * calc->sprite_pos.y);
+	calc->sprite_screen_x = (cub3d->mlx_ptr->width / 2) * (1 + calc->transform.x
+			/ calc->transform.y);
+	calc->sprite_height = abs((int)(cub3d->mlx_ptr->height
+				/ (calc->transform.y)));
+	calc->draw_start_y = -calc->sprite_height / 2 + cub3d->mlx_ptr->height / 2;
+	if (calc->draw_start_y < 0)
+		calc->draw_start_y = 0;
+	calc->draw_end_y = calc->sprite_height / 2 + cub3d->mlx_ptr->height / 2;
+	if (calc->draw_end_y >= cub3d->mlx_ptr->height)
+		calc->draw_end_y = cub3d->mlx_ptr->height - 1;
+}
+
+void	render_sprite(t_cub3d *cub3d, t_sprite_calc *c, t_sprite *sprite)
+{
+	while (c->draw_start_x < c->draw_end_x)
 	{
-		sprite = lst->content;
-		double sprite_x = sprite->position.x - cub3d->player.x;
-		double sprite_y = sprite->position.y - cub3d->player.y;
-		double invDet = 1.0 / (cub3d->plane.x * cub3d->dir.y - cub3d->dir.x
-				* cub3d->plane.y);
-		double transformX = invDet * (cub3d->dir.y * sprite_x - cub3d->dir.x
-				* sprite_y);
-		double transformY = invDet * (-cub3d->plane.y * sprite_x
-				+ cub3d->plane.x * sprite_y);
-		int spriteScreenX = (int)((cub3d->mlx_ptr->width / 2) * (1 + transformX
-					/ transformY));
-		int spriteHeight = abs((int)(cub3d->mlx_ptr->height / (transformY)));
-		int drawStartY = -spriteHeight / 2 + cub3d->mlx_ptr->height / 2;
-		if (drawStartY < 0)
-			drawStartY = 0;
-		int drawEndY = spriteHeight / 2 + cub3d->mlx_ptr->height / 2;
-		if (drawEndY >= cub3d->mlx_ptr->height)
-			drawEndY = cub3d->mlx_ptr->height - 1;
-		int spriteWidth = abs((int)(cub3d->mlx_ptr->height / (transformY)));
-		int drawStartX = -spriteWidth / 2 + spriteScreenX;
-		if (drawStartX < 0)
-			drawStartX = 0;
-		int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if (drawEndX >= cub3d->mlx_ptr->width)
-			drawEndX = cub3d->mlx_ptr->width - 1;
-		for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+		c->tex_x = (c->draw_start_x - (-c->sprite_width / 2 + \
+			c->sprite_screen_x)) * sprite->texture->width / c->sprite_width;
+		if (c->transform.y > 0 && c->draw_start_x > 0
+			&& c->draw_start_x < cub3d->mlx_ptr->width
+			&& c->transform.y < cub3d->z_buffer[c->draw_start_x])
 		{
-			int texX = (int)((stripe - (-spriteWidth / 2 + spriteScreenX))
-					* sprite->texture->width / spriteWidth);
-			if (transformY > 0 && stripe > 0 && stripe < cub3d->mlx_ptr->width
-				&& transformY < cub3d->z_buffer[stripe])
-				for (int y = drawStartY; y < drawEndY; y++)
-				{
-					int texY = ((y - (cub3d->mlx_ptr->height/2) + (spriteHeight/2)) * sprite->texture->height) / spriteHeight;
-					int color = rgb_to_int(&sprite->texture->pixels[(sprite->texture->height * texY + texX) * sprite->texture->bytes_per_pixel]);
-					if (color != 0x000000FF)
-						mlx_put_pixel(cub3d->image, stripe, y, color);
-				}
+			c->y = c->draw_start_y;
+			while (c->y < c->draw_end_y)
+			{
+				c->tex_y = ((c->y - (cub3d->mlx_ptr->height / 2)
+							+ (c->sprite_height / 2)) * sprite->texture->height)
+					/ c->sprite_height;
+				c->color = rgb_to_int(&sprite->texture->pixels[\
+					(sprite->texture->height * c->tex_y + c->tex_x)
+						* sprite->texture->bytes_per_pixel]);
+				if (c->color != 0x000000FF)
+					mlx_put_pixel(cub3d->image, c->draw_start_x, \
+					c->y, c->color);
+				c->y++;
+			}
 		}
-		lst = lst->next;
+		c->draw_start_x++;
 	}
+}
+
+void	draw_sprites(t_cub3d *cub3d)
+{
+	t_sprite_calc	calc;
+	t_sprite		**arr;
+	size_t			i;
+
+	i = -1;
+	arr = ft_lst_to_array(cub3d->sprites_list);
+	sort_sprites(cub3d, arr);
+	while (arr[++i] != NULL)
+	{
+		calc_sprites_distance(cub3d, &calc, arr[i]);
+		calc.sprite_width = abs((int)(cub3d->mlx_ptr->height
+					/ (calc.transform.y)));
+		calc.draw_start_x = -calc.sprite_width / 2 + calc.sprite_screen_x;
+		if (calc.draw_start_x < 0)
+			calc.draw_start_x = 0;
+		calc.draw_end_x = calc.sprite_width / 2 + calc.sprite_screen_x;
+		if (calc.draw_end_x >= cub3d->mlx_ptr->width)
+			calc.draw_end_x = cub3d->mlx_ptr->width - 1;
+		render_sprite(cub3d, &calc, arr[i]);
+	}
+	free(arr);
 }

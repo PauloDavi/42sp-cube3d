@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:28:28 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/07 23:57:52 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/11 21:04:17 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,12 @@ size_t	find_max_map_width(t_cub3d *cub3d)
 	return (max);
 }
 
-void	free_map_and_texture(t_cub3d *cub3d)
+bool	has_load_all_params(t_cub3d *cub3d)
 {
-	ft_free_split(cub3d->map);
-	free_texture(cub3d);
-	exit(EXIT_FAILURE);
+	return (cub3d->west_texture != NULL && cub3d->east_texture != NULL
+		&& cub3d->south_texture != NULL && cub3d->south_texture != NULL
+		&& cub3d->door_texture != NULL && cub3d->wall_door_texture != NULL
+		&& cub3d->sprite_1_texture != NULL && cub3d->sprite_2_texture != NULL
+		&& cub3d->sprite_3_texture != NULL && cub3d->ceiling_color != -1
+		&& cub3d->floor_color != -1);
 }

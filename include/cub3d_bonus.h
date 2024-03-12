@@ -30,8 +30,8 @@
 # define MINI_MAP_WIDTH 200
 # define MINI_MAP_HEIGHT 200
 # define MINI_MAP_TILE_SIZE 30
-# define PLAYER_SPEED 3
-# define PLAYER_ROTATE_SPEED 2
+# define PLAYER_SPEED 0.1
+# define PLAYER_ROTATE_SPEED 0.06666666666666666
 
 # define PLAYER_COLOR 0xFF00007F
 # define WALL_COLOR 0xFFFFFF7F
@@ -42,11 +42,11 @@
 # define WALL_OFFSET 0.2
 # define INIT_MOUSE_VALUE -1
 
-# define GAME_NAME "Cub3D"
-# define VALID_CHAR_SET "01234NSEW\n "
-# define NOT_PLAYER_CHAR_SET "01234 "
+# define GAME_NAME "Cubernildo Bonarde"
+# define VALID_CHAR_SET "01234NSEWOD\n "
+# define NOT_PLAYER_CHAR_SET "01234OD "
 # define VALID_CHAR_SET_PLAYER "NSEW"
-# define VALID_WALLS_CHAR_SET "1234 "
+# define VALID_WALLS_CHAR_SET "1234OD "
 # define FILE_EXTENSION ".cub"
 
 # define WEST "WE"
@@ -55,7 +55,9 @@
 # define SOUTH "SO"
 # define DOOR "DO"
 # define WALL_DOOR "WD"
-# define SPRITE "S1"
+# define SPRITE_1 "S1"
+# define SPRITE_2 "S2"
+# define SPRITE_3 "S3"
 # define FLOOR "F"
 # define CEILING "C"
 
@@ -88,6 +90,24 @@ typedef struct s_sprite
 	t_vector		position;
 	mlx_texture_t	*texture;
 }					t_sprite;
+
+typedef struct s_sprite_calc
+{
+	t_vector		sprite_pos;
+	t_vector		transform;
+	int				draw_end_x;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_start_y;
+	double			inv_det;
+	int				sprite_screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	int				tex_x;
+	int				tex_y;
+	int				color;
+	int				y;
+}					t_sprite_calc;
 
 typedef struct s_draw_wall
 {
@@ -133,7 +153,9 @@ typedef struct s_cub3d
 	mlx_texture_t	*south_texture;
 	mlx_texture_t	*door_texture;
 	mlx_texture_t	*wall_door_texture;
-	mlx_texture_t	*sprite_texture;
+	mlx_texture_t	*sprite_1_texture;
+	mlx_texture_t	*sprite_2_texture;
+	mlx_texture_t	*sprite_3_texture;
 	int64_t			floor_color;
 	int64_t			ceiling_color;
 	t_vector		mouse;
@@ -144,13 +166,19 @@ typedef struct s_cub3d
 	double			z_buffer[WIDTH];
 }					t_cub3d;
 
+// exit
+void				invalid_parameter_exit(t_cub3d *cub3d, int fd, char **words,
+						char *str);
+bool				has_load_all_params(t_cub3d *cub3d);
+
 // sprites
-void				load_sprits(t_cub3d *cub3d);
-void				draw_sprits(t_cub3d *cub3d);
+void				load_sprites(t_cub3d *cub3d);
+void				draw_sprites(t_cub3d *cub3d);
 
 // door
 void				verify_door(t_cub3d *cub3d);
 void				handler_door(t_ray_calc *ray_calc);
+bool				load_extra_texture(t_cub3d *cub3d, char **words, int fd);
 
 // finish
 void				free_for_finish(t_cub3d *cub3d);
@@ -189,11 +217,13 @@ char				*remove_new_line(char *str);
 bool				is_empty_line(char *str);
 size_t				get_file_size(char *map_file);
 size_t				find_max_map_width(t_cub3d *cub3d);
-uint32_t			rgb_to_int(uint8_t *rgb);
 
 // math_utils
+uint32_t			rgb_to_int(uint8_t *rgb);
 double				safe_ray_dist_calc(double ray);
 int					get_signal(double num);
+double				distance(t_vector *pos1, t_vector *pos2);
+void				sort_sprites(t_cub3d *cub3d, t_sprite **arr);
 
 // rays
 void				distance_rays(t_cub3d *cub3d);

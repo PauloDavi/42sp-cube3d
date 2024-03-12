@@ -27,11 +27,11 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define PLAYER_SPEED 3
-# define PLAYER_ROTATE_SPEED 2
+# define PLAYER_SPEED 0.1
+# define PLAYER_ROTATE_SPEED 0.06666666666666666
 # define WALL_OFFSET 0.3
 
-# define GAME_NAME "Cub3D"
+# define GAME_NAME "Cubernildo Mandatori"
 # define VALID_CHAR_SET "01NSEW\n "
 # define NOT_PLAYER_CHAR_SET "01 "
 # define VALID_CHAR_SET_PLAYER "NSEW"

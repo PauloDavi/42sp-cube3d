@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:24:46 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/11 19:07:50 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:03:45 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ void	start_params(t_cub3d *cub3d)
 	cub3d->south_texture = NULL;
 	cub3d->door_texture = NULL;
 	cub3d->wall_door_texture = NULL;
-	cub3d->sprite_texture = NULL;
+	cub3d->sprite_1_texture = NULL;
+	cub3d->sprite_2_texture = NULL;
+	cub3d->sprite_3_texture = NULL;
 	cub3d->sprites_list = NULL;
 	cub3d->floor_color = -1;
 	cub3d->ceiling_color = -1;

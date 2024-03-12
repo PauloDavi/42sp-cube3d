@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:33:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/10 00:00:13 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/11 19:54:51 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,19 @@ static bool	is_wall(t_cub3d *cub3d, t_ray_calc *ray_calc)
 
 	map_x = ray_calc->map.x;
 	map_y = ray_calc->map.y;
-	if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] == '2')
+	if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] == 'D')
 	{
 		handler_door(ray_calc);
 		return (true);
 	}
 	else if (cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '0'
-			&& cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != '3')
+			&& cub3d->map[(int)ray_calc->map.y][(int)ray_calc->map.x] != 'O')
 	{
 		if (ray_calc->side == 0)
 			map_x -= ray_calc->step.x;
 		else
 			map_y -= ray_calc->step.y;
-		ray_calc->is_door_wall = cub3d->map[map_y][map_x] == '3';
+		ray_calc->is_door_wall = cub3d->map[map_y][map_x] == 'O';
 		return (true);
 	}
 	return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:31:25 by paulo             #+#    #+#             */
-/*   Updated: 2024/03/10 19:50:28 by paulo            ###   ########.fr       */
+/*   Updated: 2024/03/11 21:03:26 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ void	free_texture(t_cub3d *cub3d)
 		mlx_delete_texture(cub3d->door_texture);
 	if (cub3d->wall_door_texture != NULL)
 		mlx_delete_texture(cub3d->wall_door_texture);
-	if (cub3d->sprite_texture != NULL)
-		mlx_delete_texture(cub3d->sprite_texture);
+	if (cub3d->sprite_1_texture != NULL)
+		mlx_delete_texture(cub3d->sprite_1_texture);
+	if (cub3d->sprite_2_texture != NULL)
+		mlx_delete_texture(cub3d->sprite_2_texture);
+	if (cub3d->sprite_3_texture != NULL)
+		mlx_delete_texture(cub3d->sprite_3_texture);
 }
 
 void	free_for_finish(t_cub3d *cub3d)

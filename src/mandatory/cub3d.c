@@ -22,17 +22,17 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx_ptr);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W))
-		move_player(cub3d, (PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 0);
+		move_player(cub3d, PLAYER_SPEED, 0);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_S))
-		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 0);
+		move_player(cub3d, -PLAYER_SPEED, 0);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_A))
-		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), 1);
+		move_player(cub3d, -PLAYER_SPEED, 1);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_D))
-		move_player(cub3d, (-PLAYER_SPEED * cub3d->mlx_ptr->delta_time), -1);
+		move_player(cub3d, -PLAYER_SPEED, -1);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_RIGHT))
-		rotate_player(cub3d, PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
+		rotate_player(cub3d, PLAYER_ROTATE_SPEED);
 	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_LEFT))
-		rotate_player(cub3d, -PLAYER_ROTATE_SPEED * cub3d->mlx_ptr->delta_time);
+		rotate_player(cub3d, -PLAYER_ROTATE_SPEED);
 }
 
 int	main(int argc, char **argv)
